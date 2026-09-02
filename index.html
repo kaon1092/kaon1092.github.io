@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이종원 | Portfolio</title>
+<meta name="description" content="자율주행과 항공(무인기·MuM-T)을 연구하는 엔지니어 이종원의 포트폴리오">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --ink: #16181d;
+    --ink-soft: #5b6272;
+    --accent: #3f5efb;
+    --accent-soft: #e9edfe;
+    --line: #e7e9f0;
+    --radius: 20px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── 상단 네비게이션 ── */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff;
+    box-shadow: 0 1px 12px rgba(20,24,40,.06);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .logo {
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.35rem;
+    color: var(--ink); text-decoration: none; position: relative; padding-left: 14px;
+  }
+  .logo::before {
+    content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-52%);
+    width: 34px; height: 34px; border-radius: 50%; background: var(--accent); z-index: -1;
+  }
+  nav ul { display: flex; gap: 34px; list-style: none; }
+  nav ul a {
+    font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+    text-decoration: none; color: var(--ink); font-size: 1rem; font-weight: 500;
+    padding-bottom: 4px;
+  }
+  nav ul a:hover { color: var(--accent); border-bottom: 2px solid var(--accent); }
+  @media (max-width: 760px) { nav ul { display: none; } }
+
+  /* ── Hero ── */
+  header { padding: 100px 0 80px; background: #fff; }
+  .eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .14em; font-size: .82rem; font-family: 'Poppins', sans-serif; }
+  header h1 { font-size: clamp(1.9rem, 4.5vw, 2.9rem); font-weight: 900; margin: 12px 0 18px; letter-spacing: -.01em; }
+  header h1 em { font-style: normal; color: var(--accent); }
+  header p.lead { color: var(--ink-soft); max-width: 680px; font-size: 1.04rem; }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 26px; }
+  .hero-tags span {
+    background: var(--accent-soft); color: var(--accent);
+    padding: 6px 16px; border-radius: 999px; font-size: .84rem; font-weight: 700;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 76px 0; }
+  h2 {
+    font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+    font-size: 1.7rem; font-weight: 700; margin-bottom: 4px;
+  }
+  .sub { color: var(--ink-soft); font-size: .95rem; margin-bottom: 34px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 26px 30px;
+    box-shadow: 0 2px 14px rgba(20,24,40,.04);
+  }
+  .card + .card { margin-top: 16px; }
+  .card h3 { font-size: 1.1rem; font-weight: 700; }
+  .card .meta { color: var(--accent); font-size: .82rem; font-weight: 700; margin-bottom: 6px; }
+  .card p { color: var(--ink-soft); font-size: .94rem; margin-top: 8px; }
+
+  /* ── Skills ── */
+  #skills { background: #fff; }
+  .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  .skill-grid .card { margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .chips span {
+    border: 1px solid var(--line); background: var(--bg);
+    padding: 5px 13px; border-radius: 9px; font-size: .85rem; font-weight: 500;
+  }
+
+  /* ── Projects: 사진형 카드 그리드 ── */
+  .proj-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 26px;
+  }
+  .proj-card {
+    position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+    min-height: 400px; border-radius: var(--radius); overflow: hidden;
+    padding: 30px 28px; color: #fff; text-decoration: none;
+    box-shadow: 0 6px 22px rgba(20,24,40,.14);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .proj-card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(20,24,40,.2); }
+  .proj-card::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,14,26,.05) 30%, rgba(10,14,26,.72) 100%);
+  }
+  .proj-card > * { position: relative; z-index: 1; }
+  .proj-card h3 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; }
+  .proj-card p { font-size: .95rem; opacity: .92; margin-top: 8px; }
+  .proj-card .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .proj-card .tags span {
+    border: 1px solid rgba(255,255,255,.55); background: rgba(255,255,255,.12);
+    backdrop-filter: blur(4px);
+    padding: 5px 14px; border-radius: 999px; font-size: .8rem; font-weight: 500;
+  }
+  /* 카드 배경 — 프로젝트 사진으로 교체 가능 (background-image로 바꾸면 됨) */
+  .bg-1 { background: linear-gradient(135deg, #16226d 0%, #3f5efb 55%, #7fa0ff 100%); }
+  .bg-2 { background: linear-gradient(135deg, #0e2a2b 0%, #14666b 55%, #4fd1c5 100%); }
+  .bg-3 { background: linear-gradient(135deg, #3a1657 0%, #7b2ff7 55%, #b98aff 100%); }
+  .bg-4 { background: linear-gradient(135deg, #58210f 0%, #d4552b 55%, #ffb27d 100%); }
+  .bg-5 { background: linear-gradient(135deg, #10263f 0%, #1f6fae 55%, #7cc4f8 100%); }
+  .bg-6 { background: linear-gradient(135deg, #232526 0%, #414345 55%, #8e9eab 100%); }
+
+  /* ── Highlights ── */
+  .award-list .card { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 24px; }
+  .award-list .card h3 { font-size: .98rem; }
+  .award-list .when { color: var(--ink-soft); font-size: .86rem; white-space: nowrap; }
+  .hl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+  @media (max-width: 800px) { .hl-grid { grid-template-columns: 1fr; } }
+  .hl-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; }
+
+  /* ── Contact ── */
+  #contact { background: #fff; }
+  #contact .card { text-align: center; padding: 46px 28px; }
+  .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 22px; }
+  .contact-links a {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff; text-decoration: none;
+    padding: 11px 24px; border-radius: 999px; font-weight: 700; font-size: .93rem;
+  }
+  .contact-links a.ghost { background: #fff; color: var(--accent); border: 1.5px solid var(--accent); }
+  .contact-links a:hover { opacity: .88; }
+
+  footer { text-align: center; color: var(--ink-soft); font-size: .8rem; padding: 34px 0 44px; }
+
+  /* 확인 필요한 항목 표시 (배포 전 제거) */
+  .todo { background: #fff4d6; border-radius: 4px; padding: 0 4px; }
+</style>
+</head>
+<body id="home">
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#home">LeeJongwon</a>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#highlights">Highlights</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">PORTFOLIO</div>
+    <h1>안녕하세요,<br>자율주행과 항공을 연구하는 엔지니어 <em>이종원</em>입니다.</h1>
+    <p class="lead">
+      자율주행 시스템의 경로 계획·판단·제어부터 무인기(UAV) 운용,
+      MuM-T(유·무인 복합운용)와 단일 조종자 제어 분야까지 —
+      모빌리티의 '자율화'라는 하나의 흐름 안에서 지상과 공중을 아우르는
+      프로젝트를 수행해 왔습니다. 시뮬레이션과 실제 임베디드 환경을 오가며
+      직접 구현하고 검증하는 것을 가장 큰 강점으로 생각합니다.
+    </p>
+    <div class="hero-tags">
+      <span>자율주행</span><span>무인기 · UAV</span><span>MuM-T</span><span>단일 조종자 제어</span><span>임베디드 AI</span>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <p class="sub">소개 · 학력</p>
+    <div class="card">
+      <p>
+        지상의 자율주행 차량과 공중의 무인기를 하나의 자율 시스템 관점에서 바라보고,
+        인지–판단–제어 전 과정을 직접 설계하고 구현해 온 엔지니어입니다.
+        ROS 기반 자율주행 시뮬레이션, AI 드론, 임베디드 비전 등 폭넓은 프로젝트 경험을
+        바탕으로 어떤 도메인에서든 빠르게 적응하고 결과를 만드는 것을 목표로 합니다.
+      </p>
+    </div>
+    <div class="card">
+      <div class="meta">2021.03 – 재학 중</div>
+      <h3>한국항공대학교 스마트드론공학과</h3>
+    </div>
+    <div class="card">
+      <div class="meta">2020.03 – 2021.02</div>
+      <h3>가톨릭관동대학교 항공운항학과</h3>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <p class="sub">기술 스택</p>
+    <div class="skill-grid">
+      <div class="card">
+        <h3>프로그래밍</h3>
+        <div class="chips"><span>Python</span><span>MATLAB</span></div>
+      </div>
+      <div class="card">
+        <h3>자율주행 · 로보틱스</h3>
+        <div class="chips"><span>ROS</span><span>MORAI SIM</span><span>경로 계획 (A* · Hybrid A* · RRT*)</span><span>MPPI 제어</span></div>
+      </div>
+      <div class="card">
+        <h3>항공 · 무인기</h3>
+        <div class="chips"><span>UAV 운용</span><span>MuM-T</span><span>드론 제어</span></div>
+      </div>
+      <div class="card">
+        <h3>임베디드 · 개발 환경</h3>
+        <div class="chips"><span>Raspberry Pi</span><span>ESP32</span><span>Linux (WSL)</span><span>Git / GitHub</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <p class="sub">프로젝트 · 활동</p>
+    <div class="proj-grid">
+
+      <div class="proj-card bg-1">
+        <h3>KAUVOY 자율주행 시스템</h3>
+        <p>MORAI K-City 경로 계획·장애물 회피·미션 주행</p>
+        <div class="tags"><span>ROS</span><span>Hybrid A*</span><span>RRT*</span><span>MPPI</span></div>
+      </div>
+
+      <div class="proj-card bg-3">
+        <h3>AI × Drone Challenge</h3>
+        <p>AI 기반 드론 경로 및 장애물 대응 프로젝트</p>
+        <div class="tags"><span>Drone</span><span>AI</span></div>
+      </div>
+
+      <div class="proj-card bg-4">
+        <h3>MORAI 자율주행 경진대회</h3>
+        <p>FSM 기반 차량 제어 시스템 개발 — 2026 본선 준비 중</p>
+        <div class="tags"><span>ROS</span><span>FSM</span><span>제어</span></div>
+      </div>
+
+      <a class="proj-card bg-5" href="https://github.com/kaon1092/MONA_ESP_lib" target="_blank" rel="noopener">
+        <h3>MONA ESP Library</h3>
+        <p>ESP32 기반 소형 로봇 플랫폼 제어 라이브러리</p>
+        <div class="tags"><span>임베디드</span><span>ESP32</span><span>GitHub ↗</span></div>
+      </a>
+
+      <a class="proj-card bg-6" href="https://github.com/kaon1092/space-simulator" target="_blank" rel="noopener">
+        <h3>Space Simulator</h3>
+        <p>우주 환경 시뮬레이션 프로젝트</p>
+        <div class="tags"><span>Simulation</span><span>GitHub ↗</span></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="highlights">
+  <div class="wrap">
+    <h2>Highlights</h2>
+    <p class="sub">수상 · 자격증</p>
+    <div class="hl-grid">
+      <div>
+        <h3 class="hl-title">🏆 수상</h3>
+        <div class="award-list">
+          <div class="card">
+            <div><h3>항공우주시스템공학회 캡스톤 디자인 경진대회 우수상</h3></div>
+            <div class="when">2026</div>
+          </div>
+          <div class="card">
+            <div><h3>Drone &amp; AI 경진대회 우수상</h3></div>
+            <div class="when">2026</div>
+          </div>
+          <div class="card">
+            <div><h3>Airbus101 5th 입상</h3></div>
+            <div class="when">2026</div>
+          </div>
+          <div class="card">
+            <div><h3>Boeing Contest 장려상</h3></div>
+            <div class="when">2021.11</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="hl-title">📜 자격증 · 어학</h3>
+        <div class="award-list">
+          <div class="card">
+            <div><h3>자가용 조종사 면장 (PPL)</h3></div>
+            <div class="when">비행시간 34h</div>
+          </div>
+          <div class="card">
+            <div><h3>초경량 비행장치 조종자 1종 (무인멀티콥터)</h3></div>
+            <div class="when">2021.07</div>
+          </div>
+          <div class="card">
+            <div><h3>항공무선통신사</h3></div>
+            <div class="when">2020.06</div>
+          </div>
+          <div class="card">
+            <div><h3>OPIc IH</h3></div>
+            <div class="when">2026.05</div>
+          </div>
+          <div class="card">
+            <div><h3>Google AI Essentials (Coursera)</h3></div>
+            <div class="when">2025.10</div>
+          </div>
+          <div class="card">
+            <div><h3>워드프로세서</h3></div>
+            <div class="when">2022.10</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p class="sub">연락처</p>
+    <div class="card">
+      <h3>함께 성장할 기회를 기다립니다.</h3>
+      <p>프로젝트 협업, 대회, 연구 관련 연락은 언제든 환영합니다.</p>
+      <div class="contact-links">
+        <a href="mailto:leejun1092@gmail.com">✉️ leejun1092@gmail.com</a>
+        <a class="ghost" href="https://instagram.com/0117_jw" target="_blank" rel="noopener">📷 @0117_jw</a>
+        <a class="ghost" href="https://github.com/kaon1092" target="_blank" rel="noopener">💻 GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Lee Jongwon · Built with GitHub Pages
+</footer>
+
+</body>
+</html>
