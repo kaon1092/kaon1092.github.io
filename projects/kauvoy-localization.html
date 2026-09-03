@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAUVOY 실차 측위 개발 | 이종원 Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f6f7fb; --surface:#fff; --ink:#16181d; --ink-soft:#5b6272; --accent:#3f5efb; --accent-soft:#e9edfe; --line:#e7e9f0; --radius:20px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans KR','Malgun Gothic',sans-serif; background:var(--bg); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:880px; margin:0 auto; padding:0 24px; }
+  nav { position:sticky; top:0; z-index:10; background:#fff; box-shadow:0 1px 12px rgba(20,24,40,.06); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; max-width:1180px; }
+  .logo { font-family:'Poppins',sans-serif; font-weight:700; font-size:1.2rem; color:var(--ink); text-decoration:none; position:relative; padding-left:12px; }
+  .logo::before { content:""; position:absolute; left:0; top:50%; transform:translateY(-52%); width:30px; height:30px; border-radius:50%; background:var(--accent); z-index:-1; }
+  nav a.back { color:var(--accent); text-decoration:none; font-weight:700; font-size:.92rem; }
+  header { background:#fff; padding:64px 0 48px; border-bottom:1px solid var(--line); }
+  .meta { color:var(--accent); font-weight:700; font-size:.88rem; letter-spacing:.02em; }
+  h1 { font-size:clamp(1.6rem,4vw,2.3rem); font-weight:900; margin:10px 0 14px; letter-spacing:-.01em; }
+  .lead { color:var(--ink-soft); font-size:1.02rem; max-width:720px; }
+  .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .tags span { background:var(--accent-soft); color:var(--accent); padding:5px 14px; border-radius:999px; font-size:.82rem; font-weight:700; }
+  section { padding:46px 0 6px; }
+  h2 { font-size:1.3rem; font-weight:900; margin-bottom:16px; }
+  h2::before { content:""; display:inline-block; width:20px; height:4px; background:var(--accent); border-radius:2px; margin-right:10px; vertical-align:middle; }
+  h3 { font-size:1.05rem; font-weight:700; margin:22px 0 6px; }
+  p, li { color:var(--ink-soft); font-size:.96rem; }
+  ul { margin:8px 0 8px 20px; }
+  li + li { margin-top:6px; }
+  li b, p b { color:var(--ink); }
+  figure { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:14px; margin:20px 0; }
+  figure img { width:100%; border-radius:12px; display:block; }
+  figcaption { color:var(--ink-soft); font-size:.85rem; margin-top:10px; text-align:center; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:720px){ .grid2 { grid-template-columns:1fr; } }
+  .note { background:var(--accent-soft); border-radius:12px; padding:14px 18px; font-size:.9rem; color:var(--ink); margin:24px 0 40px; }
+  footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:40px 0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="../index.html">LeeJongwon</a>
+    <a class="back" href="../index.html#projects">← Projects로 돌아가기</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="meta">2024 – 2025 · 대학생 창작 모빌리티 경진대회 · 2024 Localization 팀원 → 2025 Localization 팀장</div>
+    <h1>KAUVOY 자율주행 — ERP42 실차 측위(Localization) 개발</h1>
+    <p class="lead">
+      ERP42 실차 플랫폼에서 GPS·IMU·휠 엔코더를 융합하는 측위 시스템을 2년에 걸쳐 개발.
+      1년차의 시행착오를 바탕으로 2년차에 팀장으로서 아키텍처를 재설계하여 본선 진출을 달성했습니다.
+    </p>
+    <div class="tags"><span>ERP42 실차</span><span>robot_localization</span><span>Dual EKF</span><span>ROS</span><span>Pure Pursuit</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2>현장 기록</h2>
+  <div class="grid2">
+    <figure>
+      <img src="../assets/kauvoy25-vehicle-hw.jpg" alt="ERP42 차량 하드웨어 구성">
+      <figcaption>2025 본선 — ERP42 차량 센서·컴퓨팅 하드웨어 구성</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/kauvoy25-booth.jpg" alt="한국항공대학교 KAUVOY 부스">
+      <figcaption>본선 현장 한국항공대학교 KAUVOY 부스 (2025.10.31 – 11.01)</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/kauvoy25-track.jpg" alt="대회 트랙">
+      <figcaption>본선 미션 코스</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/kauvoy25-finish-arch.jpg" alt="대회 출발 게이트">
+      <figcaption>대회 주행 게이트</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>2024 — 팀원: 문제를 배운 해</h2>
+  <ul>
+    <li>GPS·IMU 센서 융합 기반 측위 구현, 단일 EKF 모듈 적용 시도</li>
+    <li>센서 간 샘플링 주기 차이(IMU 100Hz+ vs GPS 1–10Hz), 시간 동기화, 공분산 튜닝의 중요성 등 <b>실차에서만 배울 수 있는 한계를 체득</b> — 단일 EKF 적용은 실패로 끝났지만 이듬해 재설계의 토대가 됨</li>
+  </ul>
+</section>
+
+<section>
+  <h2>2025 — Localization 팀장: 재설계로 증명한 해</h2>
+  <ul>
+    <li><b>robot_localization 기반 Dual EKF 구조 설계</b> — EKF Local(IMU + 휠 오도메트리 → 연속적인 로컬 측위)과 EKF Global(+ GPS, navsat_transform → 전역 측위)의 이중 구조로 GPS 불안정 구간에서도 측위 연속성 확보</li>
+    <li><b>센서 시간 동기화·공분산 행렬 튜닝</b>으로 융합 정확도 안정화 — 1년차 실패 원인을 데이터로 분석해 해결</li>
+    <li>측위 출력을 기반으로 Decision 팀과 협업 — <b>Pure Pursuit 경로 추종, 주차 경로 생성 로직</b> 연구·적용</li>
+    <li>팀장으로서 팀원 자료조사·연구계획서·기술보고서 작성 총괄</li>
+    <li>🏁 <b>대회 본선 진출</b> (2025.10.31 – 11.01)</li>
+    <li>📄 <b>2025 한국자동차공학회 추계학술대회 포스터 발표</b> — 실차 측위 연구 내용을 1저자로 직접 발표</li>
+  </ul>
+</section>
+
+<section>
+  <h2>이후 이야기</h2>
+  <p>
+    이 경험은 <a href="morai-mpc.html" style="color:var(--accent); font-weight:700;">2026 MORAI 시뮬레이션 프로젝트</a>로 이어져,
+    측위를 넘어 MPC 기반 주행 스택 전체를 설계하는 단계로 확장되었습니다.
+    2025년의 Dual EKF 구조는 2026 스택의 측위 계층(robot_localization 이중 EKF)에 그대로 계승되었습니다.
+  </p>
+</section>
+
+<div class="note">💡 실차 코드와 상세 기술보고서는 팀 자산으로 비공개이며, 아키텍처·연구 내용은 학술대회 포스터로 공개 발표되었습니다.</div>
+
+</div>
+
+<footer>© 2026 Lee Jongwon · <a href="../index.html" style="color:var(--accent);">leejongwon portfolio</a></footer>
+
+</body>
+</html>

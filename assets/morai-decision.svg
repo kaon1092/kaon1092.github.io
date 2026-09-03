@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1680 900" font-family="Malgun Gothic, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+  </defs>
+  <rect width="1680" height="900" fill="#fcfcfb"/>
+
+  <text x="40" y="56" font-size="27" font-weight="bold" fill="#0b0b0b">감속 계획과 decision 분기 — "필요한 만큼만 세게, 조향은 끝까지 MPC"</text>
+
+  <!-- ===== 왼쪽: traffic_speed_node ===== -->
+  <text x="40" y="120" font-size="20" font-weight="bold" fill="#2a78d6">① traffic_speed_node — 감속 계획 (20Hz)</text>
+
+  <!-- 상태기계 -->
+  <g>
+    <rect x="70" y="160" width="180" height="64" rx="32" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2"/>
+    <text x="160" y="199" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">FREE (-1)</text>
+
+    <rect x="330" y="160" width="180" height="64" rx="32" fill="#fdeee7" stroke="#e34948" stroke-width="2"/>
+    <text x="420" y="199" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">STOP</text>
+
+    <rect x="590" y="160" width="180" height="64" rx="32" fill="#eafaf3" stroke="#008300" stroke-width="2"/>
+    <text x="680" y="199" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">LAUNCH</text>
+
+    <line x1="250" y1="180" x2="322" y2="180" stroke="#52514e" stroke-width="1.8" marker-end="url(#a2)"/>
+    <text x="286" y="168" font-size="13" fill="#52514e" text-anchor="middle">d ≥ 0 (적신호)</text>
+    <line x1="510" y1="192" x2="582" y2="192" stroke="#52514e" stroke-width="1.8" marker-end="url(#a2)"/>
+    <text x="546" y="180" font-size="13" fill="#52514e" text-anchor="middle">d &lt; 0 (초록)</text>
+    <path d="M 680 224 L 680 268 L 160 268 L 160 224" stroke="#52514e" stroke-width="1.8" fill="none" marker-end="url(#a2)"/>
+    <text x="420" y="288" font-size="13" fill="#52514e" text-anchor="middle">램프가 순항속도 도달 → 제약 해제(-1)</text>
+    <path d="M 468 224 L 468 250 L 372 250 L 372 224" stroke="#52514e" stroke-width="1.5" fill="none" marker-end="url(#a2)"/>
+    <text x="420" y="245" font-size="12" fill="#52514e" text-anchor="middle">재적신호</text>
+  </g>
+
+  <!-- 감속 법칙 수식 -->
+  <rect x="70" y="330" width="700" height="210" rx="10" fill="#ffffff" stroke="#d8d7d2" stroke-width="1.5"/>
+  <text x="95" y="368" font-size="16.5" font-weight="bold" fill="#0b0b0b">STOP 모드 감속 법칙 (매 틱 재계산)</text>
+  <g font-family="Consolas, monospace" font-size="16.5" fill="#0b0b0b">
+    <text x="95" y="404">a_req   = v² / 2(d − margin)</text>
+    <text x="95" y="434">a_cmd   = clamp(1.1·a_req,  1.5, 3.5)  [m/s²]</text>
+    <text x="95" y="464">v_allow = √(2 · a_cmd · (d − margin))</text>
+  </g>
+  <text x="95" y="500" font-size="14" fill="#52514e">여유가 있으면 쾌적(1.5)하게, 촉박하면 세게(최대 3.5) — d가 20Hz로 줄면</text>
+  <text x="95" y="522" font-size="14" fill="#52514e">v_allow가 물리 정지 곡선을 타고 0으로 수렴 → 차가 곡선을 따라 내려온다</text>
+
+  <!-- 재출발 -->
+  <rect x="70" y="570" width="700" height="96" rx="10" fill="#ffffff" stroke="#d8d7d2" stroke-width="1.5"/>
+  <text x="95" y="606" font-size="16.5" font-weight="bold" fill="#0b0b0b">LAUNCH 모드 — 급가속 방지 램프</text>
+  <text x="95" y="636" font-size="14.5" fill="#52514e">초록 전환 시 상한을 즉시 풀지 않고 1.5m/s²로 서서히 상향 → 순항 도달 시 -1(해제)</text>
+
+  <!-- ===== 오른쪽: decision ===== -->
+  <text x="880" y="120" font-size="20" font-weight="bold" fill="#2a78d6">② control_decision — traffic 분기 (50Hz, 최종 발행자)</text>
+
+  <rect x="880" y="152" width="330" height="58" rx="10" fill="#f1f0ec" stroke="#b9b7b0" stroke-width="1.5"/>
+  <text x="1045" y="188" font-size="15.5" fill="#0b0b0b" text-anchor="middle">입력: d(신선 1.5s), 현재 속도 v</text>
+
+  <!-- 분기 1: 비상 -->
+  <path d="M 1045 210 L 1045 246" stroke="#52514e" stroke-width="1.8" marker-end="url(#a2)"/>
+  <rect x="880" y="250" width="330" height="58" rx="10" fill="#ffffff" stroke="#52514e" stroke-width="1.5"/>
+  <text x="1045" y="286" font-size="15.5" fill="#0b0b0b" text-anchor="middle" font-family="Consolas, monospace">a_req = v²/2d ≥ 6.0 ?</text>
+  <path d="M 1210 279 L 1330 279" stroke="#e34948" stroke-width="2" marker-end="url(#a2)"/>
+  <text x="1252" y="268" font-size="13.5" fill="#e34948" font-weight="bold">YES</text>
+  <rect x="1338" y="246" width="302" height="86" rx="10" fill="#fdeee7" stroke="#e34948" stroke-width="2.5"/>
+  <text x="1489" y="278" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">EMERGENCY 직접 제동</text>
+  <text x="1489" y="304" font-size="14" fill="#52514e" text-anchor="middle" font-family="Consolas, monospace">brake = min(1, a_req/10.2)</text>
+  <text x="1489" y="322" font-size="12.5" fill="#52514e" text-anchor="middle">10.2 = brake 1.0 상당 실측 감속도</text>
+
+  <!-- 분기 2: HOLD -->
+  <path d="M 1045 308 L 1045 344" stroke="#52514e" stroke-width="1.8" marker-end="url(#a2)"/>
+  <text x="1058" y="332" font-size="13" fill="#52514e">NO</text>
+  <rect x="880" y="348" width="330" height="58" rx="10" fill="#ffffff" stroke="#52514e" stroke-width="1.5"/>
+  <text x="1045" y="384" font-size="15.5" fill="#0b0b0b" text-anchor="middle" font-family="Consolas, monospace">d ≤ 2.0m  &amp;  v ≤ 1.3m/s ?</text>
+  <path d="M 1210 377 L 1330 377" stroke="#eda100" stroke-width="2" marker-end="url(#a2)"/>
+  <text x="1252" y="366" font-size="13.5" fill="#c98500" font-weight="bold">YES</text>
+  <rect x="1338" y="344" width="302" height="86" rx="10" fill="#fdf6e3" stroke="#eda100" stroke-width="2.5"/>
+  <text x="1489" y="376" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">HOLD 정지 유지</text>
+  <text x="1489" y="402" font-size="14" fill="#52514e" text-anchor="middle">brake 0.4 (크리핑 방지)</text>
+  <text x="1489" y="420" font-size="12.5" fill="#52514e" text-anchor="middle">planner v_min 1.0 플로어 보완 (마지막 2m)</text>
+
+  <!-- 분기 3: PASS -->
+  <path d="M 1045 406 L 1045 442" stroke="#52514e" stroke-width="1.8" marker-end="url(#a2)"/>
+  <text x="1058" y="430" font-size="13" fill="#52514e">NO</text>
+  <rect x="880" y="446" width="330" height="72" rx="10" fill="#eafaf3" stroke="#008300" stroke-width="2"/>
+  <text x="1045" y="476" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">PASS — 개입 없음</text>
+  <text x="1045" y="500" font-size="13.5" fill="#52514e" text-anchor="middle">감속은 planner 경유 v_target이 이미 수행 중</text>
+
+  <!-- 상한 merge -->
+  <rect x="880" y="560" width="760" height="86" rx="10" fill="#ffffff" stroke="#d8d7d2" stroke-width="1.5"/>
+  <text x="905" y="594" font-size="16" font-weight="bold" fill="#0b0b0b">공통: 전 소스 속도상한 merge (과속 가드에 합류)</text>
+  <text x="905" y="622" font-size="14.5" fill="#52514e" font-family="Consolas, monospace">limit = min(limit, v_allow + 0.5margin)</text>
+  <text x="1290" y="622" font-size="14" fill="#52514e">→ MPC가 죽어 fallback으로 전환돼도 신호는 준수</text>
+
+  <!-- 조향 강조 -->
+  <rect x="880" y="672" width="760" height="60" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2.5"/>
+  <text x="1260" y="709" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">세 분기 모두 조향(steering)은 MPC 값 그대로 → 제동 중에도 경로 유지</text>
+
+  <!-- 검증 결과 요약 -->
+  <rect x="40" y="770" width="1600" height="96" rx="10" fill="#eafaf3" stroke="#008300" stroke-width="1.5"/>
+  <text x="65" y="806" font-size="17" font-weight="bold" fill="#0b0b0b">실주행 검증 (2026-08-17): 매핑된 4개 신호등 × 4랩 = 15/15 전 회 정상 정지</text>
+  <text x="65" y="836" font-size="14.5" fill="#52514e">red 확정 15.5~31.5m → 감속 3~4s(평균 약 3m/s², a_max 3.5 내) → HOLD 정지(d≈1m 지점, 최대 29s red 감시) → 초록 즉시 해제 → LAUNCH 재출발 · 조향 이탈 0 · 60kph 위반 0</text>
+</svg>

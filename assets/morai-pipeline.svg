@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1680 900" font-family="Malgun Gothic, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+    <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2a78d6"/>
+    </marker>
+  </defs>
+  <rect width="1680" height="900" fill="#fcfcfb"/>
+
+  <text x="40" y="56" font-size="27" font-weight="bold" fill="#0b0b0b">신호등 정지 제어 — 전체 데이터 흐름 (jw_ws, 2026-08-17 실주행 검증 완료)</text>
+  <text x="40" y="88" font-size="15" fill="#52514e">판단(인지)은 traffic_light_zone 패키지, 감속은 상류 주입 → MPC가 조향·감속을 한 세트로 정합 최적화</text>
+
+  <!-- 범례 -->
+  <g font-size="13.5" fill="#0b0b0b">
+    <rect x="1178" y="30" width="26" height="16" fill="#eaf2fc" stroke="#2a78d6" stroke-width="3"/><text x="1212" y="43">신규 작성</text>
+    <rect x="1178" y="56" width="26" height="16" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.5"/><text x="1212" y="69">기존 파일 수정 (odom 전환 등)</text>
+    <rect x="1400" y="30" width="26" height="16" fill="#fdeee7" stroke="#eb6834" stroke-width="2" stroke-dasharray="6 3"/><text x="1434" y="43">파라미터만 변경</text>
+    <rect x="1400" y="56" width="26" height="16" fill="#f1f0ec" stroke="#b9b7b0" stroke-width="1.5"/><text x="1434" y="69">무수정 / 외부</text>
+  </g>
+
+  <!-- ===== 1행: 인지 사슬 ===== -->
+  <g>
+    <rect x="40" y="150" width="270" height="96" rx="10" fill="#f1f0ec" stroke="#52514e" stroke-width="1.5"/>
+    <text x="175" y="188" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">MORAI 시뮬레이터</text>
+    <text x="175" y="214" font-size="14" fill="#52514e" text-anchor="middle">TL 전용 카메라 1280×720 FOV60</text>
+    <text x="175" y="234" font-size="13" fill="#52514e" text-anchor="middle">UDP → 172.25.14.92:9096</text>
+
+    <rect x="380" y="150" width="270" height="96" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.5"/>
+    <text x="515" y="188" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">camera_udp_bridge</text>
+    <text x="515" y="214" font-size="14" fill="#52514e" text-anchor="middle">UDP 조각 재조립 → JPEG</text>
+    <text x="515" y="234" font-size="13" fill="#52514e" text-anchor="middle">rosbridge 우회 (지연 제거)</text>
+
+    <rect x="720" y="150" width="270" height="96" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.5"/>
+    <text x="855" y="188" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">tl_detector</text>
+    <text x="855" y="214" font-size="14" fill="#52514e" text-anchor="middle">3D투영 → 탐색창 → 하우징</text>
+    <text x="855" y="234" font-size="13" fill="#52514e" text-anchor="middle">→ 칸별 HSV 4클래스 판정</text>
+
+    <rect x="1060" y="150" width="270" height="96" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.5"/>
+    <text x="1195" y="188" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">tl_zone_manager</text>
+    <text x="1195" y="214" font-size="14" fill="#52514e" text-anchor="middle">존 게이팅(40m)·red 래치</text>
+    <text x="1195" y="234" font-size="13" fill="#52514e" text-anchor="middle">정지점 = 정지선 − setback</text>
+
+    <line x1="310" y1="198" x2="372" y2="198" stroke="#52514e" stroke-width="1.8" marker-end="url(#ar)"/>
+    <line x1="650" y1="198" x2="712" y2="198" stroke="#52514e" stroke-width="1.8" marker-end="url(#ar)"/>
+    <text x="681" y="184" font-size="12.5" fill="#52514e" text-anchor="middle" font-family="Consolas, monospace">/image_jpeg/tl</text>
+    <line x1="990" y1="198" x2="1052" y2="198" stroke="#52514e" stroke-width="1.8" marker-end="url(#ar)"/>
+    <text x="1021" y="184" font-size="12.5" fill="#52514e" text-anchor="middle" font-family="Consolas, monospace">/tl/lamps</text>
+  </g>
+
+  <!-- d 커넥터: zone_manager → (2행) speed_node + decision -->
+  <path d="M 1195 246 L 1195 330" stroke="#2a78d6" stroke-width="2.2" fill="none"/>
+  <path d="M 1195 330 L 175 330 L 175 552" stroke="#2a78d6" stroke-width="2.2" fill="none" marker-end="url(#arb)"/>
+  <path d="M 1195 330 L 1195 552" stroke="#2a78d6" stroke-width="2.2" stroke-dasharray="7 4" fill="none" marker-end="url(#arb)"/>
+  <text x="685" y="320" font-size="14" fill="#2a78d6" text-anchor="middle" font-family="Consolas, monospace">/traffic_stop_distance (d [m], 20Hz, -1=GO)</text>
+  <text x="1210" y="420" font-size="12.5" fill="#2a78d6">d 직접 구독</text>
+  <text x="1210" y="438" font-size="12.5" fill="#2a78d6">(HOLD·비상 판단)</text>
+
+  <!-- 측위 버스 -->
+  <rect x="255" y="405" width="880" height="46" rx="8" fill="#f1f0ec" stroke="#b9b7b0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="695" y="426" font-size="14.5" font-weight="bold" fill="#52514e" text-anchor="middle">/odometry/filtered_map — 이중 EKF (robot_localization)</text>
+  <text x="695" y="444" font-size="12.5" fill="#52514e" text-anchor="middle">전 노드 공통 측위 (/Ego_topic 완전 대체 — 쿼터니언→도 변환은 각 노드 내부, ground_z=28.7)</text>
+
+  <!-- ===== 2행: 계획·제어 사슬 ===== -->
+  <g>
+    <rect x="40" y="552" width="270" height="104" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="3"/>
+    <text x="175" y="588" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">traffic_speed_node ★</text>
+    <text x="175" y="612" font-size="14" fill="#52514e" text-anchor="middle">감속 법칙: 필요한 만큼만 세게</text>
+    <text x="175" y="632" font-size="13" fill="#52514e" text-anchor="middle">v_allow=√(2·a_cmd·(d−margin))</text>
+
+    <rect x="380" y="552" width="270" height="104" rx="10" fill="#fdeee7" stroke="#eb6834" stroke-width="2" stroke-dasharray="6 3"/>
+    <text x="515" y="588" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">local_path_planner</text>
+    <text x="515" y="612" font-size="14" fill="#52514e" text-anchor="middle">v_target[i] = min(곡률 상한, v_allow)</text>
+    <text x="515" y="632" font-size="13" fill="#52514e" text-anchor="middle">override 훅 토픽명만 지정 (코드 무수정)</text>
+
+    <rect x="720" y="552" width="270" height="104" rx="10" fill="#f1f0ec" stroke="#b9b7b0" stroke-width="1.5"/>
+    <text x="855" y="588" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">mpc_controller</text>
+    <text x="855" y="612" font-size="14" fill="#52514e" text-anchor="middle">LTV-MPC: v_target 배열을 따라</text>
+    <text x="855" y="632" font-size="13" fill="#52514e" text-anchor="middle">조향+가감속을 한 세트로 최적화</text>
+
+    <rect x="1060" y="552" width="270" height="104" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.5"/>
+    <text x="1195" y="582" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">control_decision</text>
+    <text x="1195" y="604" font-size="13.5" fill="#52514e" text-anchor="middle">traffic 분기: HOLD(마지막 2m)·비상</text>
+    <text x="1195" y="622" font-size="13.5" fill="#52514e" text-anchor="middle">전 소스 상한 merge (fallback도 준수)</text>
+    <text x="1195" y="642" font-size="13.5" fill="#2a78d6" text-anchor="middle" font-weight="bold">조향은 항상 MPC 값 유지</text>
+
+    <rect x="1400" y="552" width="240" height="104" rx="10" fill="#f1f0ec" stroke="#52514e" stroke-width="1.5"/>
+    <text x="1520" y="592" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">MORAI</text>
+    <text x="1520" y="618" font-size="14" fill="#52514e" text-anchor="middle">차량 구동</text>
+    <text x="1520" y="638" font-size="13" fill="#52514e" text-anchor="middle">ctrl UDP :9093</text>
+
+    <line x1="310" y1="604" x2="372" y2="604" stroke="#52514e" stroke-width="1.8" marker-end="url(#ar)"/>
+    <text x="341" y="590" font-size="12" fill="#52514e" text-anchor="middle" font-family="Consolas, monospace">/traffic/</text>
+    <text x="341" y="576" font-size="12" fill="#52514e" text-anchor="middle" font-family="Consolas, monospace">speed_limit</text>
+    <line x1="650" y1="604" x2="712" y2="604" stroke="#52514e" stroke-width="1.8" marker-end="url(#ar)"/>
+    <text x="681" y="583" font-size="12" fill="#52514e" text-anchor="middle" font-family="Consolas, monospace">/local_path</text>
+    <line x1="990" y1="604" x2="1052" y2="604" stroke="#52514e" stroke-width="1.8" marker-end="url(#ar)"/>
+    <text x="1021" y="583" font-size="12" fill="#52514e" text-anchor="middle" font-family="Consolas, monospace">/control/mpc_cmd</text>
+    <line x1="1330" y1="604" x2="1392" y2="604" stroke="#52514e" stroke-width="1.8" marker-end="url(#ar)"/>
+    <text x="1361" y="583" font-size="12" fill="#52514e" text-anchor="middle" font-family="Consolas, monospace">/ctrl_cmd</text>
+  </g>
+
+  <!-- fallback -->
+  <rect x="760" y="726" width="230" height="66" rx="10" fill="#f1f0ec" stroke="#b9b7b0" stroke-width="1.5"/>
+  <text x="875" y="753" font-size="16" font-weight="bold" fill="#0b0b0b" text-anchor="middle">fallback (Stanley+PID)</text>
+  <text x="875" y="775" font-size="12.5" fill="#52514e" text-anchor="middle">MPC 사망 시 예비 — 무수정</text>
+  <path d="M 990 759 L 1148 759 L 1148 660" stroke="#52514e" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#ar)"/>
+  <text x="1160" y="700" font-size="12" fill="#52514e" font-family="Consolas, monospace">/control/fallback_cmd</text>
+
+  <!-- 원리 한 줄 -->
+  <rect x="40" y="826" width="1600" height="50" rx="8" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1"/>
+  <text x="840" y="857" font-size="15.5" fill="#0b0b0b" text-anchor="middle" font-weight="bold">핵심 원리: 속도 제약을 하류(브레이크 개입)가 아닌 상류(planner v_target)에 주입 → MPC와 브레이크가 싸우지 않고, 감속 중에도 조향-속도가 항상 정합</text>
+</svg>

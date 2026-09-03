@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MORAI MPC 주행 스택 | 이종원 Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f6f7fb; --surface:#fff; --ink:#16181d; --ink-soft:#5b6272; --accent:#3f5efb; --accent-soft:#e9edfe; --line:#e7e9f0; --radius:20px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Noto Sans KR','Malgun Gothic',sans-serif; background:var(--bg); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:880px; margin:0 auto; padding:0 24px; }
+  nav { position:sticky; top:0; z-index:10; background:#fff; box-shadow:0 1px 12px rgba(20,24,40,.06); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; max-width:1180px; }
+  .logo { font-family:'Poppins',sans-serif; font-weight:700; font-size:1.2rem; color:var(--ink); text-decoration:none; position:relative; padding-left:12px; }
+  .logo::before { content:""; position:absolute; left:0; top:50%; transform:translateY(-52%); width:30px; height:30px; border-radius:50%; background:var(--accent); z-index:-1; }
+  nav a.back { color:var(--accent); text-decoration:none; font-weight:700; font-size:.92rem; }
+  header { background:#fff; padding:64px 0 48px; border-bottom:1px solid var(--line); }
+  .meta { color:var(--accent); font-weight:700; font-size:.88rem; letter-spacing:.02em; }
+  h1 { font-size:clamp(1.6rem,4vw,2.3rem); font-weight:900; margin:10px 0 14px; letter-spacing:-.01em; }
+  .lead { color:var(--ink-soft); font-size:1.02rem; max-width:720px; }
+  .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .tags span { background:var(--accent-soft); color:var(--accent); padding:5px 14px; border-radius:999px; font-size:.82rem; font-weight:700; }
+  section { padding:46px 0 6px; }
+  h2 { font-size:1.3rem; font-weight:900; margin-bottom:16px; }
+  h2::before { content:""; display:inline-block; width:20px; height:4px; background:var(--accent); border-radius:2px; margin-right:10px; vertical-align:middle; }
+  p, li { color:var(--ink-soft); font-size:.96rem; }
+  ul { margin:8px 0 8px 20px; }
+  li + li { margin-top:6px; }
+  li b, p b { color:var(--ink); }
+  figure { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:14px; margin:20px 0; }
+  figure img, figure video { width:100%; border-radius:12px; display:block; }
+  figcaption { color:var(--ink-soft); font-size:.85rem; margin-top:10px; text-align:center; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:720px){ .grid2 { grid-template-columns:1fr; } }
+  .note { background:var(--accent-soft); border-radius:12px; padding:14px 18px; font-size:.9rem; color:var(--ink); margin:24px 0 40px; }
+  footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:40px 0; }
+  .cta { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; padding:10px 22px; border-radius:999px; font-weight:700; font-size:.9rem; margin-top:12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="../index.html">LeeJongwon</a>
+    <a class="back" href="../index.html#projects">← Projects로 돌아가기</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="meta">2026.01 – 진행 중 · KAUVOY Control 팀 · 2026 대학생 창작 모빌리티 경진대회</div>
+    <h1>MORAI 자율주행 시뮬레이션 — MPC 기반 주행 스택 개발</h1>
+    <p class="lead">
+      MORAI 시뮬레이터 위에 ROS 기반 7개 패키지 주행 스택을 설계·구현.
+      센서 수신(UDP 브리지)부터 이중 EKF 측위(50Hz), 곡률 기반 지역 경로(20Hz),
+      신호등 인지·감속, LTV-MPC 제어까지 전 파이프라인을 담당했습니다.
+    </p>
+    <div class="tags"><span>ROS</span><span>LTV-MPC</span><span>robot_localization</span><span>Python</span><span>WSL Ubuntu 20.04</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2>주행 데모 — 신호등 정지 통합 검증</h2>
+  <figure>
+    <video controls muted playsinline preload="metadata" poster="../assets/morai-demo-poster.jpg">
+      <source src="../assets/morai-traffic-demo.mp4" type="video/mp4">
+    </video>
+    <figcaption>MPC + 신호등 로직 통합 실주행 검증 (2026.08) — 카메라 기반 신호 인지와 MPC 제어가 결합된 주행 장면</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>시스템 아키텍처</h2>
+  <p>
+    센서 → 측위 → 경로 → 신호등 → 제어로 이어지는 7개 패키지 파이프라인.
+    핵심 설계 원칙은 <b>속도 제약(신호등 감속 등)을 하류 브레이크 개입이 아니라
+    상류 planner의 목표 속도 프로파일에 주입</b>하는 것 — MPC가 조향과 가감속을
+    한 세트로 정합 최적화하므로 감속 중에도 경로 추종이 유지됩니다.
+  </p>
+  <figure>
+    <img src="../assets/morai-pipeline.svg" alt="전체 파이프라인 다이어그램">
+    <figcaption>전체 데이터 흐름 — UDP 브리지 → 이중 EKF 측위(50Hz) → 전역/지역 경로(20Hz) → 신호등 감속 주입 → MPC 제어(50Hz)</figcaption>
+  </figure>
+  <figure>
+    <img src="../assets/morai-decision.svg" alt="감속 법칙 및 decision 분기 다이어그램">
+    <figcaption>신호등 감속 법칙과 control_decision 노드의 분기 구조</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>핵심 작업</h2>
+  <ul>
+    <li><b>LTV-MPC 제어기 개발</b> — 지역 경로의 목표 속도 배열과 곡률을 입력으로 조향+가감속을 통합 최적화. 60km/h 주행 대응 개선, 스웨잉(swaying) 문제를 파라미터 구체화로 해결</li>
+    <li><b>3중 안전 구조 설계</b> — MPC / Stanley+PID 예비 제어기 / control_decision 중재 노드(유일 발행자, 계측 건강도 감시, HOLD·EMERGENCY 분기)로 단일 고장점 제거</li>
+    <li><b>GPS 음영구간 복귀 검증</b> — robot_localization 이중 EKF 구조로 GPS 신호 소실 구간에서 휠 오도메트리·IMU 기반 측위 유지 및 복귀 검증</li>
+    <li><b>신호등 정지 통합</b> — 카메라 UDP 수신 → 신호 인지 → 정지선 거리 계산 → planner 속도 프로파일 주입까지 통합, 실주행 검증 완료</li>
+    <li><b>UDP 브리지 구축</b> — MORAI(Windows) ↔ ROS(WSL) 간 GPS/IMU/차량상태/제어명령 통신 계층 설계</li>
+  </ul>
+</section>
+
+<section>
+  <h2>검증 결과</h2>
+  <div class="grid2">
+    <figure>
+      <img src="../assets/morai-baseline-compare.png" alt="베이스라인 런1/런2 비교 그래프">
+      <figcaption>MPC + Fallback 베이스라인 반복 주행 비교 — 재현성 검증</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/morai-path-analysis.png" alt="경로 전처리 분석">
+      <figcaption>전역 경로 전처리·곡률 분석</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>개발 과정</h2>
+  <p>
+    1월 대회 분석 → PID·조향 실험(3월) → MPC 근거자료 및 설계(4월) → MPC 통합·검증(7월)
+    → UDP 브리지 전환 → 60km/h 개선·스웨잉 해결(7–8월) → Fallback·음영구간·신호등 통합(8월)까지,
+    날짜별 작업 로그와 실험 영상으로 전 과정을 기록하며 개발했습니다.
+    문제가 생길 때마다 <b>증거(영상·그래프)를 남기고 파라미터를 재측정 가능한 형태로 문서화</b>하는
+    방식을 유지하고 있습니다.
+  </p>
+  <p style="margin-top:10px">
+    이 프로젝트는 <a href="kauvoy-localization.html" style="color:var(--accent); font-weight:700;">2024–25 KAUVOY 실차 측위 개발</a>의
+    연장선으로, 측위 담당에서 주행 스택 전체 설계로 역할을 확장한 단계입니다.
+  </p>
+</section>
+
+<div class="note">
+  💡 소스 코드는 대회 진행 중 전략 보호를 위해 비공개이며, <b>2026년 본선 종료 후 GitHub에 공개 예정</b>입니다.
+</div>
+
+</div>
+
+<footer>© 2026 Lee Jongwon · <a href="../index.html" style="color:var(--accent);">leejongwon portfolio</a></footer>
+
+</body>
+</html>

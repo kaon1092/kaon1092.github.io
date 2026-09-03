@@ -117,7 +117,9 @@
     backdrop-filter: blur(4px);
     padding: 5px 14px; border-radius: 999px; font-size: .8rem; font-weight: 500;
   }
-  /* 카드 배경 — 프로젝트 사진으로 교체 가능 (background-image로 바꾸면 됨) */
+  /* 카드 배경 — 사진 또는 그라데이션 */
+  .bg-morai { background: url("assets/morai-demo-poster.jpg") center/cover no-repeat; }
+  .bg-kauvoy { background: url("assets/kauvoy25-vehicle-hw.jpg") center/cover no-repeat; }
   .bg-1 { background: linear-gradient(135deg, #16226d 0%, #3f5efb 55%, #7fa0ff 100%); }
   .bg-2 { background: linear-gradient(135deg, #0e2a2b 0%, #14666b 55%, #4fd1c5 100%); }
   .bg-3 { background: linear-gradient(135deg, #3a1657 0%, #7b2ff7 55%, #b98aff 100%); }
@@ -129,8 +131,7 @@
   .award-list .card { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 24px; }
   .award-list .card h3 { font-size: .98rem; }
   .award-list .when { color: var(--ink-soft); font-size: .86rem; white-space: nowrap; }
-  .hl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
-  @media (max-width: 800px) { .hl-grid { grid-template-columns: 1fr; } }
+  .hl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: start; }
   .hl-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; }
 
   /* ── Contact ── */
@@ -238,35 +239,53 @@
     <p class="sub">프로젝트 · 활동</p>
     <div class="proj-grid">
 
-      <div class="proj-card bg-1">
-        <h3>KAUVOY 자율주행 시스템</h3>
-        <p>MORAI K-City 경로 계획·장애물 회피·미션 주행</p>
-        <div class="tags"><span>ROS</span><span>Hybrid A*</span><span>RRT*</span><span>MPPI</span></div>
-      </div>
+      <a class="proj-card bg-morai" href="projects/morai-mpc.html">
+        <h3>MORAI 자율주행 시뮬레이션</h3>
+        <p>MPC 기반 주행 스택 개발 — 측위·경로·신호등·제어 전 파이프라인 (2026, 진행 중)</p>
+        <div class="tags"><span>LTV-MPC</span><span>ROS</span><span>Dual EKF</span><span>상세 보기 →</span></div>
+      </a>
+
+      <a class="proj-card bg-kauvoy" href="projects/kauvoy-localization.html">
+        <h3>KAUVOY AI 실차 자율주행</h3>
+        <p>ERP42 실차 — GPS·IMU 기반 EKF/Dual EKF Localization 및 경로 추종 연구·적용, 본선 진출 (2024–2025, Localization 팀장)</p>
+        <div class="tags"><span>ERP42</span><span>Dual EKF</span><span>경로 추종</span><span>상세 보기 →</span></div>
+      </a>
 
       <div class="proj-card bg-3">
-        <h3>AI × Drone Challenge</h3>
-        <p>AI 기반 드론 경로 및 장애물 대응 프로젝트</p>
-        <div class="tags"><span>Drone</span><span>AI</span></div>
+        <h3>다중 로봇 지능 연구 (InMO LAB)</h3>
+        <p>MONA 소형 로봇 기반 P2P 통신 다중 로봇 임무 할당 — SILS→HILS 검증 테스트베드 구축, KROC 논문 제출 (2025)</p>
+        <div class="tags"><span>Multi-Robot</span><span>HILS</span><span>P2P</span></div>
+      </div>
+
+      <div class="proj-card bg-2">
+        <h3>F-16 AI Pilot 경진대회</h3>
+        <p>Behavior Tree 기반 AI Pilot Agent 개발 — 2025 예선 3위</p>
+        <div class="tags"><span>Behavior Tree</span><span>AI Agent</span><span>비행 시뮬레이션</span></div>
       </div>
 
       <div class="proj-card bg-4">
-        <h3>MORAI 자율주행 경진대회</h3>
-        <p>FSM 기반 차량 제어 시스템 개발 — 2026 본선 준비 중</p>
-        <div class="tags"><span>ROS</span><span>FSM</span><span>제어</span></div>
+        <h3>6DOF 유도무기 시뮬레이션</h3>
+        <p>캡스톤 디자인 — 6자유도 유도무기 시뮬레이션 개발, 항공우주시스템공학회 경진대회 우수상 (2026)</p>
+        <div class="tags"><span>6DOF</span><span>유도·제어</span><span>시뮬레이션</span></div>
       </div>
 
-      <a class="proj-card bg-5" href="https://github.com/kaon1092/MONA_ESP_lib" target="_blank" rel="noopener">
-        <h3>MONA ESP Library</h3>
-        <p>ESP32 기반 소형 로봇 플랫폼 제어 라이브러리</p>
-        <div class="tags"><span>임베디드</span><span>ESP32</span><span>GitHub ↗</span></div>
-      </a>
+      <div class="proj-card bg-5">
+        <h3>Drone Racing 자율비행</h3>
+        <p>YOLO 비전 인식과 구간별 강화학습을 결합한 드론 레이싱 자율비행 — 2024 대회 참가</p>
+        <div class="tags"><span>YOLO</span><span>강화학습</span><span>Vision 제어</span></div>
+      </div>
 
-      <a class="proj-card bg-6" href="https://github.com/kaon1092/space-simulator" target="_blank" rel="noopener">
-        <h3>Space Simulator</h3>
-        <p>우주 환경 시뮬레이션 프로젝트</p>
-        <div class="tags"><span>Simulation</span><span>GitHub ↗</span></div>
-      </a>
+      <div class="proj-card bg-1">
+        <h3>Airbus101 아이디어 공모전</h3>
+        <p>난기류 시 캐빈도어 개방으로 인한 낙상사고를 막는 하드웨어 잠금장치 제안 — 입상 (2026)</p>
+        <div class="tags"><span>항공 안전</span><span>기구 설계</span></div>
+      </div>
+
+      <div class="proj-card bg-6">
+        <h3>Boeing Contest</h3>
+        <p>화성 이주를 위한 스카이훅(Skyhook) 아이디어 제안 — 장려상 (2021)</p>
+        <div class="tags"><span>우주 시스템</span><span>아이디어</span></div>
+      </div>
 
     </div>
   </div>
@@ -295,6 +314,19 @@
           <div class="card">
             <div><h3>Boeing Contest 장려상</h3></div>
             <div class="when">2021.11</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="hl-title">📄 논문 · 학술 발표</h3>
+        <div class="award-list">
+          <div class="card">
+            <div><h3>한국자동차공학회 추계학술대회 포스터 발표 — 실차 측위(Localization) 연구, 1저자·직접 발표</h3></div>
+            <div class="when">2025.11</div>
+          </div>
+          <div class="card">
+            <div><h3>KROC 논문 제출 — 다중 로봇 임무 할당 (InMO LAB)</h3></div>
+            <div class="when">2025</div>
           </div>
         </div>
       </div>
