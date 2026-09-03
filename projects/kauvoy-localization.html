@@ -32,7 +32,7 @@
   li + li { margin-top:6px; }
   li b, p b { color:var(--ink); }
   figure { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:14px; margin:20px 0; }
-  figure img { width:100%; border-radius:12px; display:block; }
+  figure img, figure video { width:100%; border-radius:12px; display:block; }
   figcaption { color:var(--ink-soft); font-size:.85rem; margin-top:10px; text-align:center; }
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
   @media (max-width:720px){ .grid2 { grid-template-columns:1fr; } }
@@ -62,6 +62,44 @@
 </header>
 
 <div class="wrap">
+
+<section>
+  <h2>실차 주행 영상</h2>
+  <div class="grid2">
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv/9a8e7403-final2025.mp4" type="video/mp4"></video>
+      <figcaption>🏁 2025 본선 당일 트랙 주행 (2025.11.01) — Dual EKF 측위 기반</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv/dbd47ee3-race2024a.mp4" type="video/mp4"></video>
+      <figcaption>2024 예선 당일 미션 주행 ① (2024.11.01)</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv/ba107cb7-race2024b.mp4" type="video/mp4"></video>
+      <figcaption>2024 예선 당일 미션 주행 ② (2024.11.01)</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv/9412ad3f-kcity-auto.mp4" type="video/mp4"></video>
+      <figcaption>K-City 자율주행 (2024.08) — GPS 웨이포인트 기반 자율 주행</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv/7296ffac-obstacle.mp4" type="video/mp4"></video>
+      <figcaption>장애물(라바콘) 인지 및 회피 (2024.09) — LiDAR 클러스터링 기반</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv/fecaaede-vision-cone.mp4" type="video/mp4"></video>
+      <figcaption>비전 기반 라바콘 인식 주행 (2024.09)</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv/2bec0c95-uturn.mp4" type="video/mp4"></video>
+      <figcaption>야간 라바콘 U턴 테스트 (2024.10)</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv/a85cc82c-first-run.mp4" type="video/mp4"></video>
+      <figcaption>ERP42 첫 시험 운행 (2024.03.30)</figcaption>
+    </figure>
+  </div>
+</section>
 
 <section>
   <h2>현장 기록</h2>
