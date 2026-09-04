@@ -64,6 +64,86 @@
 <div class="wrap">
 
 <section>
+  <h2>시스템 아키텍처 — Dual EKF 측위 파이프라인 (2025)</h2>
+  <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px; overflow-x:auto;">
+    <svg viewBox="0 0 880 610" xmlns="http://www.w3.org/2000/svg" style="min-width:640px; width:100%; display:block; font-family:'Noto Sans KR',sans-serif;">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#3f5efb"/>
+        </marker>
+      </defs>
+
+      <!-- 담당 영역 표시 -->
+      <rect x="14" y="26" width="852" height="420" rx="14" fill="none" stroke="#3f5efb" stroke-width="1.4" stroke-dasharray="6 5" opacity=".55"/>
+      <rect x="622" y="12" width="244" height="28" rx="14" fill="#3f5efb"/>
+      <text x="744" y="31" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">📍 Localization — 담당 파트</text>
+
+      <!-- 센서 계층 -->
+      <rect x="30" y="56" width="250" height="62" rx="10" fill="#e9edfe" stroke="#3f5efb" stroke-width="1.5"/>
+      <text x="155" y="82" text-anchor="middle" font-size="14" font-weight="700" fill="#16181d">RTK-GPS</text>
+      <text x="155" y="103" text-anchor="middle" font-size="11.5" fill="#5b6272">u-blox ZED-F9P + NTRIP 보정 · 1–10 Hz</text>
+
+      <rect x="315" y="56" width="250" height="62" rx="10" fill="#e9edfe" stroke="#3f5efb" stroke-width="1.5"/>
+      <text x="440" y="82" text-anchor="middle" font-size="14" font-weight="700" fill="#16181d">IMU</text>
+      <text x="440" y="103" text-anchor="middle" font-size="11.5" fill="#5b6272">자세 · 각속도 · 가속도 · 100 Hz+</text>
+
+      <rect x="600" y="56" width="250" height="62" rx="10" fill="#e9edfe" stroke="#3f5efb" stroke-width="1.5"/>
+      <text x="725" y="82" text-anchor="middle" font-size="14" font-weight="700" fill="#16181d">휠 엔코더</text>
+      <text x="725" y="103" text-anchor="middle" font-size="11.5" fill="#5b6272">바퀴 회전량 → Wheel Odometry</text>
+
+      <!-- navsat_transform -->
+      <line x1="155" y1="118" x2="155" y2="162" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#arr)"/>
+      <rect x="30" y="166" width="250" height="46" rx="10" fill="#fff" stroke="#9fb2f7" stroke-width="1.5"/>
+      <text x="155" y="188" text-anchor="middle" font-size="12.5" font-weight="700" fill="#16181d">navsat_transform</text>
+      <text x="155" y="204" text-anchor="middle" font-size="11" fill="#5b6272">위경도 → Odometry(UTM) 변환</text>
+
+      <!-- 센서 → EKF 연결 -->
+      <line x1="155" y1="212" x2="155" y2="256" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#arr)"/>
+      <polyline points="440,118 440,238 330,238 330,256" fill="none" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#arr)"/>
+      <polyline points="440,238 560,238 560,256" fill="none" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#arr)"/>
+      <polyline points="725,118 725,238 655,238 655,256" fill="none" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#arr)"/>
+      <polyline points="725,238 760,238 760,256" fill="none" stroke="#3f5efb" stroke-width="1.8" opacity="0"/>
+      <polyline points="330,238 240,238 240,256" fill="none" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#arr)"/>
+
+      <!-- EKF 계층 -->
+      <rect x="30" y="260" width="400" height="70" rx="10" fill="#fff" stroke="#3f5efb" stroke-width="2.2"/>
+      <text x="230" y="286" text-anchor="middle" font-size="14" font-weight="700" fill="#16181d">EKF Global (robot_localization)</text>
+      <text x="230" y="308" text-anchor="middle" font-size="11.5" fill="#5b6272">GPS + IMU + 휠 오도메트리 → 절대 측위 (map)</text>
+
+      <rect x="460" y="260" width="390" height="70" rx="10" fill="#fff" stroke="#3f5efb" stroke-width="2.2"/>
+      <text x="655" y="286" text-anchor="middle" font-size="14" font-weight="700" fill="#16181d">EKF Local (robot_localization)</text>
+      <text x="655" y="308" text-anchor="middle" font-size="11.5" fill="#5b6272">IMU + 휠 오도메트리 → 연속 측위 (odom)</text>
+
+      <!-- EKF → 출력 -->
+      <line x1="230" y1="330" x2="230" y2="372" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#arr)"/>
+      <line x1="655" y1="330" x2="655" y2="372" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#arr)"/>
+
+      <!-- 출력 버스 -->
+      <rect x="30" y="376" width="820" height="52" rx="10" fill="#3f5efb"/>
+      <text x="440" y="398" text-anchor="middle" font-size="13.5" font-weight="700" fill="#fff">/odometry/filtered — 50 Hz 공통 측위 출력</text>
+      <text x="440" y="417" text-anchor="middle" font-size="11" fill="#dfe6fd">타임스탬프 기반 시간 동기화 · 센서별 공분산 행렬 튜닝</text>
+
+      <!-- 출력 → 다운스트림 -->
+      <line x1="230" y1="428" x2="230" y2="486" stroke="#8e9ab5" stroke-width="1.8" marker-end="url(#arr)"/>
+      <line x1="655" y1="428" x2="655" y2="486" stroke="#8e9ab5" stroke-width="1.8" marker-end="url(#arr)"/>
+
+      <!-- 다운스트림 -->
+      <rect x="30" y="490" width="400" height="64" rx="10" fill="#f1f3f8" stroke="#c8cede" stroke-width="1.5"/>
+      <text x="230" y="516" text-anchor="middle" font-size="13.5" font-weight="700" fill="#16181d">Decision — 경로 계획</text>
+      <text x="230" y="537" text-anchor="middle" font-size="11.5" fill="#5b6272">Pure Pursuit 경로 추종 · 주차 경로 생성 (협업)</text>
+
+      <rect x="460" y="490" width="390" height="64" rx="10" fill="#f1f3f8" stroke="#c8cede" stroke-width="1.5"/>
+      <text x="655" y="516" text-anchor="middle" font-size="13.5" font-weight="700" fill="#16181d">Control — 차량 제어</text>
+      <text x="655" y="537" text-anchor="middle" font-size="11.5" fill="#5b6272">조향 · 속도 PID → ERP42 실차 구동</text>
+
+      <line x1="430" y1="522" x2="456" y2="522" stroke="#8e9ab5" stroke-width="1.8" marker-end="url(#arr)"/>
+
+      <text x="440" y="592" text-anchor="middle" font-size="11" fill="#5b6272">2024년 단일 EKF 시도의 한계(시간 비동기 · 공분산 미튜닝)를 2025년 Dual EKF 재설계로 해결 → 본선 진출</text>
+    </svg>
+  </div>
+</section>
+
+<section>
   <h2>실차 주행 영상</h2>
   <div class="grid2">
     <figure>
