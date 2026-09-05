@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boeing Day Skyhook | 이종원 Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f6f7fb; --ink:#16181d; --ink-soft:#5b6272; --accent:#3f5efb; --accent-soft:#e9edfe; --line:#e7e9f0; --radius:16px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 24px; }
+  nav { position:sticky; top:0; z-index:10; background:#fff; box-shadow:0 1px 12px rgba(20,24,40,.06); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { font-family:'Poppins',sans-serif; font-weight:700; font-size:1.2rem; color:var(--ink); text-decoration:none; position:relative; padding-left:12px; }
+  .logo::before { content:""; position:absolute; left:0; top:50%; transform:translateY(-52%); width:30px; height:30px; border-radius:50%; background:var(--accent); z-index:-1; }
+  nav a.back { color:var(--accent); text-decoration:none; font-weight:700; font-size:.9rem; }
+  header { background:#fff; padding:56px 0 44px; border-bottom:1px solid var(--line); }
+  .meta { color:var(--accent); font-weight:700; font-size:.88rem; }
+  h1 { font-size:clamp(1.6rem,4vw,2.3rem); font-weight:900; margin:10px 0 14px; }
+  .lead { color:var(--ink-soft); max-width:760px; font-size:.98rem; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+  .chips span { background:var(--accent-soft); color:var(--accent); padding:5px 14px; border-radius:999px; font-size:.82rem; font-weight:700; }
+  section { padding:52px 0 8px; }
+  h2 { font-size:1.3rem; font-weight:900; margin-bottom:16px; }
+  h2::before { content:""; display:inline-block; width:20px; height:4px; background:var(--accent); border-radius:2px; margin-right:9px; vertical-align:middle; }
+  p, li { color:var(--ink-soft); font-size:.95rem; }
+  ul { margin:8px 0 8px 20px; }
+  li + li { margin-top:6px; }
+  li b, p b { color:var(--ink); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px 28px; }
+  figure { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:12px; margin:14px 0; max-width:460px; }
+  figure img { width:100%; border-radius:10px; display:block; }
+  figcaption { color:var(--ink-soft); font-size:.83rem; margin-top:8px; text-align:center; }
+  footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:36px 0 44px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="../index.html">LeeJongwon</a>
+    <a class="back" href="../index.html#projects">← Projects로 돌아가기</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="meta">2021 · 팀 Akshan · Boeing Day "The Road to Mars" — 3등 (2021.11.24)</div>
+    <h1>Skyhook —<br>화성 이주를 위한 궤도 테더 수송 아이디어</h1>
+    <p class="lead">
+      Boeing이 주최한 화성 이주 아이디어 공모전 'Boeing Day: The Road to Mars'에서,
+      로켓 연료만으로 화성 왕복 수송을 감당하기 어렵다는 문제의식에서 출발해
+      <b>스카이훅(Skyhook)</b> — 궤도에서 회전하는 테더(케이블) 구조물로 우주선을
+      건져 올리고 던져 보내는 수송 시스템 — 을 제안했습니다. 1학년 때 참가한 첫 공모전으로,
+      항공우주 분야 진로의 출발점이 된 프로젝트입니다.
+    </p>
+    <div class="chips">
+      <span>우주 시스템</span><span>Skyhook · 테더</span><span>CATIA 설계</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>수행 내용</h2>
+    <figure>
+      <img src="../assets/cards/boeing.jpg" alt="2021 Boeing Day" loading="lazy">
+      <figcaption>2021 Boeing Day "The Road to Mars" (2021.11.24)</figcaption>
+    </figure>
+    <ul>
+      <li><b>개념 연구</b> — 스카이훅 관련 논문을 조사해 회전 테더의 운동량 교환 원리와 연료 절감 효과를 정리, 화성 수송 시나리오에 적용</li>
+      <li><b>구조 설계</b> — 테더 코어·케이블 구조를 CATIA로 모델링해 아이디어를 구체적인 형상으로 제시</li>
+      <li><b>최종 발표</b> — 아이디어 스케치 → 1차 선발 → 중간점검 → 영문 병행 최종 발표까지 전 과정 수행</li>
+    </ul>
+    <div class="card" style="margin-top:18px">
+      <p>🏆 <b>2021 Boeing Day 3등 수상.</b> 심사 피드백과 예상 질문 대응을 준비하며
+      "아이디어를 공학적 근거로 방어하는 법"을 처음 배운 대회였습니다.</p>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Lee Jongwon · <a href="../index.html" style="color:var(--accent); text-decoration:none;">kaon1092.github.io</a></footer>
+
+</body>
+</html>

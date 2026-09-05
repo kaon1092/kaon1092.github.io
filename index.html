@@ -120,12 +120,12 @@
   /* 카드 배경 — 사진 또는 그라데이션 */
   .bg-morai { background: url("assets/morai-demo-poster.jpg") center/cover no-repeat; }
   .bg-kauvoy { background: url("assets/kauvoy25-vehicle-hw.jpg") center/cover no-repeat; }
-  .bg-1 { background: linear-gradient(135deg, #16226d 0%, #3f5efb 55%, #7fa0ff 100%); }
-  .bg-2 { background: linear-gradient(135deg, #0e2a2b 0%, #14666b 55%, #4fd1c5 100%); }
-  .bg-3 { background: linear-gradient(135deg, #3a1657 0%, #7b2ff7 55%, #b98aff 100%); }
-  .bg-4 { background: linear-gradient(135deg, #58210f 0%, #d4552b 55%, #ffb27d 100%); }
-  .bg-5 { background: linear-gradient(135deg, #10263f 0%, #1f6fae 55%, #7cc4f8 100%); }
-  .bg-6 { background: linear-gradient(135deg, #232526 0%, #414345 55%, #8e9eab 100%); }
+  .bg-1 { background: #16226d url("assets/cards/airbus.jpg") center/cover no-repeat; }
+  .bg-2 { background: #0e2a2b url("assets/cards/f16.jpg") center/cover no-repeat; }
+  .bg-3 { background: #3a1657 url("assets/cards/inmo.jpg") center/cover no-repeat; }
+  .bg-4 { background: #58210f url("assets/cards/capstone.jpg") center/cover no-repeat; }
+  .bg-5 { background: #10263f url("assets/cards/drone.jpg") center/cover no-repeat; }
+  .bg-6 { background: #232526 url("assets/cards/boeing.jpg") center/cover no-repeat; }
 
   /* ── Highlights ── */
   .award-list .card { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 24px; }
@@ -269,35 +269,35 @@
         <div class="tags"><span>Multi-Robot</span><span>HILS</span><span>P2P</span><span>상세 보기 →</span></div>
       </a>
 
-      <div class="proj-card bg-2">
+      <a class="proj-card bg-2" href="projects/f16-ai-pilot.html">
         <h3>F-16 AI Pilot 경진대회</h3>
         <p>Behavior Tree 기반 AI Pilot Agent 개발 — 2025 예선 3위</p>
-        <div class="tags"><span>Behavior Tree</span><span>AI Agent</span><span>비행 시뮬레이션</span></div>
-      </div>
+        <div class="tags"><span>Behavior Tree</span><span>AI Agent</span><span>상세 보기 →</span></div>
+      </a>
 
-      <div class="proj-card bg-4">
+      <a class="proj-card bg-4" href="projects/capstone-6dof.html">
         <h3>6DOF 유도무기 시뮬레이션</h3>
-        <p>캡스톤 디자인 — 6자유도 유도무기 시뮬레이션 개발, 항공우주시스템공학회 경진대회 우수상 (2026)</p>
-        <div class="tags"><span>6DOF</span><span>유도·제어</span><span>시뮬레이션</span></div>
-      </div>
+        <p>캡스톤 디자인 — 6-DOF SAM 시뮬레이션 + 적응형 ADRC + Unity 3D 가시화, 항공우주시스템공학회 경진대회 우수상 (2026)</p>
+        <div class="tags"><span>6DOF</span><span>ADRC</span><span>상세 보기 →</span></div>
+      </a>
 
-      <div class="proj-card bg-5">
+      <a class="proj-card bg-5" href="projects/drone-racing.html">
         <h3>Drone Racing 자율비행</h3>
         <p>YOLO 비전 인식과 구간별 강화학습을 결합한 드론 레이싱 자율비행 — 2024 대회 참가</p>
-        <div class="tags"><span>YOLO</span><span>강화학습</span><span>Vision 제어</span></div>
-      </div>
+        <div class="tags"><span>YOLO</span><span>AirSim</span><span>상세 보기 →</span></div>
+      </a>
 
-      <div class="proj-card bg-1">
+      <a class="proj-card bg-1" href="projects/airbus101.html">
         <h3>Airbus101 아이디어 공모전</h3>
-        <p>난기류 시 캐빈도어 개방으로 인한 낙상사고를 막는 하드웨어 잠금장치 제안 — 입상 (2026)</p>
-        <div class="tags"><span>항공 안전</span><span>기구 설계</span></div>
-      </div>
+        <p>난기류 시 캐빈도어 개방으로 인한 낙상사고를 막는 하드웨어 잠금장치 'G-Lock' 제안 — 5위 입상 (2026)</p>
+        <div class="tags"><span>항공 안전</span><span>기구 설계</span><span>상세 보기 →</span></div>
+      </a>
 
-      <div class="proj-card bg-6">
+      <a class="proj-card bg-6" href="projects/boeing-skyhook.html">
         <h3>Boeing Contest</h3>
-        <p>화성 이주를 위한 스카이훅(Skyhook) 아이디어 제안 — 장려상 (2021)</p>
-        <div class="tags"><span>우주 시스템</span><span>아이디어</span></div>
-      </div>
+        <p>화성 이주를 위한 스카이훅(Skyhook) 아이디어 제안 — Boeing Day 3등 (2021)</p>
+        <div class="tags"><span>우주 시스템</span><span>CATIA</span><span>상세 보기 →</span></div>
+      </a>
 
     </div>
   </div>
@@ -324,7 +324,7 @@
             <div class="when">2026</div>
           </div>
           <div class="card">
-            <div><h3>Boeing Contest 장려상</h3></div>
+            <div><h3>Boeing Day (The Road to Mars) 3등</h3></div>
             <div class="when">2021.11</div>
           </div>
         </div>

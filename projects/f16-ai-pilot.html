@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F-16 AI Pilot 경진대회 | 이종원 Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f6f7fb; --ink:#16181d; --ink-soft:#5b6272; --accent:#3f5efb; --accent-soft:#e9edfe; --line:#e7e9f0; --radius:16px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 24px; }
+  nav { position:sticky; top:0; z-index:10; background:#fff; box-shadow:0 1px 12px rgba(20,24,40,.06); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { font-family:'Poppins',sans-serif; font-weight:700; font-size:1.2rem; color:var(--ink); text-decoration:none; position:relative; padding-left:12px; }
+  .logo::before { content:""; position:absolute; left:0; top:50%; transform:translateY(-52%); width:30px; height:30px; border-radius:50%; background:var(--accent); z-index:-1; }
+  nav a.back { color:var(--accent); text-decoration:none; font-weight:700; font-size:.9rem; }
+  header { background:#fff; padding:56px 0 44px; border-bottom:1px solid var(--line); }
+  .meta { color:var(--accent); font-weight:700; font-size:.88rem; }
+  h1 { font-size:clamp(1.6rem,4vw,2.3rem); font-weight:900; margin:10px 0 14px; }
+  .lead { color:var(--ink-soft); max-width:760px; font-size:.98rem; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+  .chips span { background:var(--accent-soft); color:var(--accent); padding:5px 14px; border-radius:999px; font-size:.82rem; font-weight:700; }
+  section { padding:52px 0 8px; }
+  h2 { font-size:1.3rem; font-weight:900; margin-bottom:16px; }
+  h2::before { content:""; display:inline-block; width:20px; height:4px; background:var(--accent); border-radius:2px; margin-right:9px; vertical-align:middle; }
+  p, li { color:var(--ink-soft); font-size:.95rem; }
+  ul { margin:8px 0 8px 20px; }
+  li + li { margin-top:6px; }
+  li b, p b { color:var(--ink); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px 28px; }
+  figure { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:12px; margin:14px 0; }
+  figure video, figure img { width:100%; border-radius:10px; display:block; }
+  figcaption { color:var(--ink-soft); font-size:.83rem; margin-top:8px; text-align:center; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:720px){ .grid2 { grid-template-columns:1fr; } }
+  pre { background:#14161d; color:#dfe4f0; border-radius:12px; padding:18px; overflow-x:auto; font-size:.8rem; line-height:1.6; margin:12px 0; }
+  footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:36px 0 44px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="../index.html">LeeJongwon</a>
+    <a class="back" href="../index.html#projects">← Projects로 돌아가기</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="meta">2025 · 팀 프로젝트 · F-16 AI Pilot 경진대회 — 예선 3위</div>
+    <h1>F-16 AI Pilot —<br>Behavior Tree 기반 공중 교전 에이전트</h1>
+    <p class="lead">
+      F-16 도그파이트(공중 교전) 시뮬레이션에서 스스로 판단하고 기동하는 AI 조종사 에이전트를
+      Behavior Tree(행동 트리)로 설계했습니다. 거리·시선각(LOS)·상대 자세각(AA) 등 교전 기하를
+      실시간 평가해 회피·공격·BFM 기동을 선택하는 구조로, 예선 3위를 기록했습니다.
+    </p>
+    <div class="chips">
+      <span>Behavior Tree</span><span>BFM</span><span>AI Agent</span><span>비행 시뮬레이션</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>교전 영상</h2>
+    <div class="grid2">
+      <figure>
+        <video controls muted playsinline preload="metadata"><source src="../assets/pj/f16-dogfight.mp4" type="video/mp4"></video>
+        <figcaption>도그파이트 뷰어 — 아군(청)·적기(적) 교전 궤적</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/pj/f16-site.jpg" alt="대회 현장" loading="lazy">
+        <figcaption>대회 예선 현장 (2025.09.10)</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Behavior Tree 설계</h2>
+    <p>에이전트의 핵심은 매 틱마다 교전 상황을 평가해 행동을 선택하는 트리 구조입니다:</p>
+<pre>MainTree
+└── Sequence
+    ├── AltitudeCheck                  // 고도 > 1000ft — 지면 충돌 방지 최우선
+    ├── UpdateSensorInfo               // 거리·LOS·AA 등 교전 기하 최신화
+    ├── CheckTargetVisible             // 적기 시야 확보 여부
+    └── Fallback (교전 선택)
+        ├── Emergency_Evade            // 적기 근접(500m 미만) → 긴급 회피
+        ├── TryAttack                  // 거리 500–3000m · LOS < 1° · AA 45–135° → 공격 (기총/미사일 선택)
+        ├── BFM_Plan                   // 상대 위치 기반 기동 선택
+        │     ├─ 적이 후방 → 방어 기동 (DBFM)
+        │     ├─ 내가 후방 → 공격 기동 (OBFM)
+        │     └─ 정면 조우 → Merge
+        ├── EnergyFight                // 에너지 우위 시 에너지전
+        └── PurePursue                 // 기본 추격</pre>
+    <ul>
+      <li><b>안전 우선 구조</b> — 고도 체크를 트리 최상단에 두어 어떤 상황에서도 지면 충돌을 방지</li>
+      <li><b>교전 기하 기반 판단</b> — 거리·시선각(LOS)·상대 자세각(AA) 조건을 만족할 때만 무장 사용, BFM(기본 전투 기동) 교리를 조건 분기로 구현</li>
+      <li><b>Fallback 우선순위 설계</b> — 회피 > 공격 > 기동 > 추격 순서로, 애매한 상황에서도 항상 유효한 행동이 선택되도록 구성</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>결과</h2>
+    <div class="card">
+      <p><b>2025 F-16 AI Pilot 경진대회 예선 3위.</b> 공중 교전 교리(BFM)를 코드 구조로 옮기는 과정에서,
+      규칙 기반 AI 설계와 실시간 판단 시스템의 우선순위 설계를 깊이 경험했습니다.
+      이 경험은 무인기·MuM-T 분야에서 자율 에이전트를 설계하는 기반이 되고 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Lee Jongwon · <a href="../index.html" style="color:var(--accent); text-decoration:none;">kaon1092.github.io</a></footer>
+
+</body>
+</html>

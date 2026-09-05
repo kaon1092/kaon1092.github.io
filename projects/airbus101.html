@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airbus101 아이디어 공모전 | 이종원 Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f6f7fb; --ink:#16181d; --ink-soft:#5b6272; --accent:#3f5efb; --accent-soft:#e9edfe; --line:#e7e9f0; --radius:16px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 24px; }
+  nav { position:sticky; top:0; z-index:10; background:#fff; box-shadow:0 1px 12px rgba(20,24,40,.06); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { font-family:'Poppins',sans-serif; font-weight:700; font-size:1.2rem; color:var(--ink); text-decoration:none; position:relative; padding-left:12px; }
+  .logo::before { content:""; position:absolute; left:0; top:50%; transform:translateY(-52%); width:30px; height:30px; border-radius:50%; background:var(--accent); z-index:-1; }
+  nav a.back { color:var(--accent); text-decoration:none; font-weight:700; font-size:.9rem; }
+  header { background:#fff; padding:56px 0 44px; border-bottom:1px solid var(--line); }
+  .meta { color:var(--accent); font-weight:700; font-size:.88rem; }
+  h1 { font-size:clamp(1.6rem,4vw,2.3rem); font-weight:900; margin:10px 0 14px; }
+  .lead { color:var(--ink-soft); max-width:760px; font-size:.98rem; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+  .chips span { background:var(--accent-soft); color:var(--accent); padding:5px 14px; border-radius:999px; font-size:.82rem; font-weight:700; }
+  section { padding:52px 0 8px; }
+  h2 { font-size:1.3rem; font-weight:900; margin-bottom:16px; }
+  h2::before { content:""; display:inline-block; width:20px; height:4px; background:var(--accent); border-radius:2px; margin-right:9px; vertical-align:middle; }
+  p, li { color:var(--ink-soft); font-size:.95rem; }
+  ul { margin:8px 0 8px 20px; }
+  li + li { margin-top:6px; }
+  li b, p b { color:var(--ink); }
+  figure { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:12px; margin:14px 0; }
+  figure img { width:100%; border-radius:10px; display:block; }
+  figcaption { color:var(--ink-soft); font-size:.83rem; margin-top:8px; text-align:center; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+  @media (max-width:760px){ .grid3 { grid-template-columns:1fr; } }
+  .card { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px 28px; }
+  footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:36px 0 44px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="../index.html">LeeJongwon</a>
+    <a class="back" href="../index.html#projects">← Projects로 돌아가기</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="meta">2026 · 4인 팀 · Airbus101 항공산업 아이디어 공모전 — 입상 (5th)</div>
+    <h1>G-Lock —<br>난기류 캐빈도어 낙상사고 방지 잠금장치</h1>
+    <p class="lead">
+      비행 중 난기류로 캐빈도어(화장실·갤리 도어 등)가 갑자기 열리며 승객·승무원이 다치는
+      낙상 사고를 막기 위한 <b>하드웨어 기반 잠금장치 'G-Lock'</b>을 제안했습니다.
+      전자 장치에 의존하지 않는 기구적(mechanical) 해결책으로 신뢰성과 인증 용이성을 확보하는
+      것이 핵심 아이디어이며, 3D 목업 설계까지 진행해 본선 5위에 입상했습니다.
+    </p>
+    <div class="chips">
+      <span>항공 안전</span><span>기구 설계</span><span>3D 목업</span><span>아이디어 공모전</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>설계 목업</h2>
+    <div class="grid3">
+      <figure>
+        <img src="../assets/cards/airbus.jpg" alt="G-Lock top view" loading="lazy">
+        <figcaption>G-Lock 기구부 Top View</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/pj/airbus-lever.jpg" alt="레버 조작" loading="lazy">
+        <figcaption>레버 조작 시 잠금 동작</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/pj/airbus-parts.jpg" alt="부품 구성" loading="lazy">
+        <figcaption>부품 구성</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>수행 내용</h2>
+    <ul>
+      <li><b>문제 정의</b> — 난기류 관련 기내 부상 사고 사례를 조사해, 캐빈도어 개방으로 인한 낙상이 반복되는 문제임을 데이터로 정의</li>
+      <li><b>기구 설계</b> — 레버 조작으로 잠금·해제되는 기계식 잠금 구조를 설계하고 3D 모델 목업 제작 (설계 관점 정리 문서 작성 담당)</li>
+      <li><b>멘토링 반영</b> — Airbus 현직 엔지니어 멘토링 2회를 거치며 인증·정비성 관점의 피드백을 설계에 반영</li>
+      <li><b>결과</b> — 본선 발표 진행, <b>5위 입상</b></li>
+    </ul>
+  </div>
+</section>
+
+<footer>© 2026 Lee Jongwon · <a href="../index.html" style="color:var(--accent); text-decoration:none;">kaon1092.github.io</a></footer>
+
+</body>
+</html>
