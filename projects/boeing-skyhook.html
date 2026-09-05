@@ -29,9 +29,12 @@
   li + li { margin-top:6px; }
   li b, p b { color:var(--ink); }
   .card { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px 28px; }
-  figure { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:12px; margin:14px 0; max-width:460px; }
+  figure { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:12px; margin:14px 0; }
   figure img { width:100%; border-radius:10px; display:block; }
   figcaption { color:var(--ink-soft); font-size:.83rem; margin-top:8px; text-align:center; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+  .grid3 figure { margin:0; }
+  @media (max-width:760px){ .grid3 { grid-template-columns:1fr; } }
   footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:36px 0 44px; }
 </style>
 </head>
@@ -63,19 +66,87 @@
 
 <section>
   <div class="wrap">
-    <h2>수행 내용</h2>
-    <figure>
+    <h2>아이디어 흐름 — Transform Skyhook</h2>
+    <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px; overflow-x:auto;">
+      <svg viewBox="0 0 880 560" xmlns="http://www.w3.org/2000/svg" style="min-width:640px; width:100%; display:block; font-family:'Noto Sans KR',sans-serif;">
+        <defs>
+          <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#3f5efb"/>
+          </marker>
+        </defs>
+
+        <rect x="190" y="20" width="500" height="66" rx="10" fill="#fff4d6" stroke="#e0a800" stroke-width="1.5"/>
+        <text x="440" y="46" text-anchor="middle" font-size="14" font-weight="700" fill="#16181d">문제 — 화성 수송의 연료 딜레마</text>
+        <text x="440" y="68" text-anchor="middle" font-size="11.5" fill="#5b6272">로켓 방정식상 ΔV가 커질수록 연료 비율이 기하급수적으로 증가 (연료가 연료를 나른다)</text>
+
+        <line x1="440" y1="86" x2="440" y2="122" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#ab)"/>
+
+        <rect x="190" y="126" width="500" height="80" rx="10" fill="#e9edfe" stroke="#3f5efb" stroke-width="1.8"/>
+        <text x="440" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#16181d">Skyhook — 궤도 회전 테더의 운동량 교환</text>
+        <text x="440" y="174" text-anchor="middle" font-size="11.5" fill="#5b6272">궤도에서 회전하는 케이블(테더)이 하단에서 우주선을 포획(Catch)하고</text>
+        <text x="440" y="192" text-anchor="middle" font-size="11.5" fill="#5b6272">반 바퀴 회전 후 상단에서 방출(Throw) → 연료 없이 속도 전달</text>
+
+        <line x1="440" y1="206" x2="440" y2="242" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#ab)"/>
+
+        <rect x="190" y="246" width="500" height="62" rx="10" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+        <text x="440" y="272" text-anchor="middle" font-size="13.5" font-weight="700" fill="#c0392b">기존 Skyhook의 한계</text>
+        <text x="440" y="293" text-anchor="middle" font-size="11.5" fill="#5b6272">긴 테더의 대기 저항 · 소재 강도 한계 · 회전 유지 에너지 손실 · 우주 파편 피격 위험</text>
+
+        <line x1="440" y1="308" x2="440" y2="344" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#ab)"/>
+
+        <rect x="130" y="348" width="620" height="100" rx="12" fill="#fff" stroke="#3f5efb" stroke-width="2.4"/>
+        <text x="440" y="376" text-anchor="middle" font-size="15" font-weight="900" fill="#3f5efb">제안: Transform Skyhook (가변형 스카이훅)</text>
+        <text x="440" y="400" text-anchor="middle" font-size="11.5" fill="#5b6272">① 길이가 변하는(Transform) 가변 테더 — 대기권 근접 시 짧게 접어 항력·피격 면적 최소화</text>
+        <text x="440" y="419" text-anchor="middle" font-size="11.5" fill="#5b6272">② 이온 추진으로 회전·궤도 에너지 보충　③ 우주 환경 미검증 CNT 대신 Zylon 소재 제안</text>
+        <text x="440" y="438" text-anchor="middle" font-size="11.5" fill="#5b6272">회전 주기 설계: 공전 1회당 3회전 (공전 150분 · 자전 50분) 기준 팁 속도 산출</text>
+
+        <line x1="440" y1="448" x2="440" y2="484" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#ab)"/>
+
+        <rect x="190" y="488" width="500" height="56" rx="10" fill="#3f5efb"/>
+        <text x="440" y="512" text-anchor="middle" font-size="13.5" font-weight="700" fill="#fff">기대 효과</text>
+        <text x="440" y="532" text-anchor="middle" font-size="11" fill="#dfe6fd">발사 연료비 절감 · 항력 감소 · 우주 파편 위험 감소 — ISS 대비 질량 규모 비교로 실현성 검토</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>설계 — CATIA 모델링 &amp; 프로토타입</h2>
+    <div class="grid3">
+      <figure>
+        <img src="../assets/pj/boeing-orbit.jpg" alt="궤도 개념도" loading="lazy">
+        <figcaption>지구 궤도 스카이훅 운용 개념</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/pj/boeing-catia1.jpg" alt="CATIA 전체 구조" loading="lazy">
+        <figcaption>CATIA — 코어·테더·모터 전체 구조</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/pj/boeing-catia2.jpg" alt="CATIA 코어부" loading="lazy">
+        <figcaption>CATIA — 가변 테더 구동부 (공전·회전 모터)</figcaption>
+      </figure>
+    </div>
+    <ul style="margin-top:16px">
+      <li><b>개념 연구</b> — Boeing HASTOL 테더 설계 자료·스카이훅 문헌을 조사해 운동량 교환 원리와 연료 절감 효과를 정량 정리 (연료비율 표 기반)</li>
+      <li><b>구조 설계</b> — 코어(Core) + 가변 테더(Tether) + 공전·회전 모터로 구성된 Transform Skyhook을 CATIA로 모델링, 프로토타입 형상 제시</li>
+      <li><b>정량 근거</b> — 이상기체 가정 항력 계산으로 테더 단축 시 항력 감소를 추정하고, ISS 질량과 비교해 건설 규모의 현실성을 검토</li>
+      <li><b>한계 인정</b> — CNT 소재의 우주 검증 부재를 스스로 지적하고 Zylon 대안을 제시 — 심사에서 좋은 평가를 받은 부분</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>발표 · 결과</h2>
+    <figure style="max-width:460px">
       <img src="../assets/cards/boeing.jpg" alt="2021 Boeing Day" loading="lazy">
       <figcaption>2021 Boeing Day "The Road to Mars" (2021.11.24)</figcaption>
     </figure>
-    <ul>
-      <li><b>개념 연구</b> — 스카이훅 관련 논문을 조사해 회전 테더의 운동량 교환 원리와 연료 절감 효과를 정리, 화성 수송 시나리오에 적용</li>
-      <li><b>구조 설계</b> — 테더 코어·케이블 구조를 CATIA로 모델링해 아이디어를 구체적인 형상으로 제시</li>
-      <li><b>최종 발표</b> — 아이디어 스케치 → 1차 선발 → 중간점검 → 영문 병행 최종 발표까지 전 과정 수행</li>
-    </ul>
     <div class="card" style="margin-top:18px">
-      <p>🏆 <b>2021 Boeing Day 3등 수상.</b> 심사 피드백과 예상 질문 대응을 준비하며
-      "아이디어를 공학적 근거로 방어하는 법"을 처음 배운 대회였습니다.</p>
+      <p>🏆 <b>2021 Boeing Day 3등 수상</b> (팀 Akshan). 아이디어 스케치 → 1차 선발 → 중간점검 →
+      영문 병행 최종 발표까지 전 과정을 수행했습니다. 예상 질문·약점 분석을 준비하며
+      "아이디어를 공학적 근거로 방어하는 법"을 처음 배운 대회였고, 항공우주 진로의 출발점이 됐습니다.</p>
     </div>
   </div>
 </section>

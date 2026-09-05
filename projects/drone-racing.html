@@ -79,6 +79,46 @@
 
 <section>
   <div class="wrap">
+    <h2>비전-제어 파이프라인</h2>
+    <div style="background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px; overflow-x:auto;">
+      <svg viewBox="0 0 880 240" xmlns="http://www.w3.org/2000/svg" style="min-width:640px; width:100%; display:block; font-family:'Noto Sans KR',sans-serif;">
+        <defs>
+          <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#3f5efb"/>
+          </marker>
+        </defs>
+        <rect x="20" y="60" width="180" height="80" rx="10" fill="#e9edfe" stroke="#3f5efb" stroke-width="1.5"/>
+        <text x="110" y="92" text-anchor="middle" font-size="13.5" font-weight="700" fill="#16181d">AirSim 시뮬레이터</text>
+        <text x="110" y="114" text-anchor="middle" font-size="11" fill="#5b6272">FPV 카메라 영상 · 기체 상태</text>
+
+        <line x1="200" y1="100" x2="242" y2="100" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#ad)"/>
+
+        <rect x="246" y="60" width="180" height="80" rx="10" fill="#fff" stroke="#3f5efb" stroke-width="2.2"/>
+        <text x="336" y="92" text-anchor="middle" font-size="13.5" font-weight="700" fill="#16181d">YOLO 게이트 인식</text>
+        <text x="336" y="114" text-anchor="middle" font-size="11" fill="#5b6272">체커보드 게이트 검출 → 중심 좌표</text>
+
+        <line x1="426" y1="100" x2="468" y2="100" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#ad)"/>
+
+        <rect x="472" y="60" width="200" height="80" rx="10" fill="#fff" stroke="#3f5efb" stroke-width="2.2"/>
+        <text x="572" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="#16181d">구간별 제어 전략</text>
+        <text x="572" y="106" text-anchor="middle" font-size="11" fill="#5b6272">직선: 속도 우선 · 선회: 정렬 우선</text>
+        <text x="572" y="123" text-anchor="middle" font-size="11" fill="#5b6272">구간별 강화학습 적용</text>
+
+        <line x1="672" y1="100" x2="714" y2="100" stroke="#3f5efb" stroke-width="1.8" marker-end="url(#ad)"/>
+
+        <rect x="718" y="60" width="140" height="80" rx="10" fill="#3f5efb"/>
+        <text x="788" y="92" text-anchor="middle" font-size="13.5" font-weight="700" fill="#fff">속도 명령</text>
+        <text x="788" y="114" text-anchor="middle" font-size="11" fill="#dfe6fd">API 제어 루프</text>
+
+        <polyline points="788,140 788,190 110,190 110,140" fill="none" stroke="#8e9ab5" stroke-width="1.6" marker-end="url(#ad)"/>
+        <text x="449" y="184" text-anchor="middle" font-size="10.5" fill="#5b6272">명령 반영 → 다음 프레임 (실시간 루프)</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <h2>수행 내용</h2>
     <ul>
       <li><b>YOLO 게이트 인식</b> — 시뮬레이터 화면에서 체커보드 게이트를 인식하도록 YOLO 모델 학습, 게이트 중심 좌표를 제어 목표로 변환</li>
