@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다중 로봇 지능 연구 (InMO LAB) | 이종원 Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f6f7fb; --surface:#fff; --ink:#16181d; --ink-soft:#5b6272; --accent:#3f5efb; --accent-soft:#e9edfe; --line:#e7e9f0; --radius:16px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 24px; }
+  nav { position:sticky; top:0; z-index:10; background:#fff; box-shadow:0 1px 12px rgba(20,24,40,.06); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { font-family:'Poppins',sans-serif; font-weight:700; font-size:1.2rem; color:var(--ink); text-decoration:none; position:relative; padding-left:12px; }
+  .logo::before { content:""; position:absolute; left:0; top:50%; transform:translateY(-52%); width:30px; height:30px; border-radius:50%; background:var(--accent); z-index:-1; }
+  nav a.back { color:var(--accent); text-decoration:none; font-weight:700; font-size:.9rem; }
+  header { background:#fff; padding:56px 0 44px; border-bottom:1px solid var(--line); }
+  .meta { color:var(--accent); font-weight:700; font-size:.88rem; }
+  h1 { font-size:clamp(1.6rem,4vw,2.3rem); font-weight:900; margin:10px 0 14px; }
+  .lead { color:var(--ink-soft); max-width:760px; font-size:.98rem; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+  .chips span { background:var(--accent-soft); color:var(--accent); padding:5px 14px; border-radius:999px; font-size:.82rem; font-weight:700; }
+  section { padding:52px 0 8px; }
+  h2 { font-size:1.3rem; font-weight:900; margin-bottom:16px; }
+  h2::before { content:""; display:inline-block; width:20px; height:4px; background:var(--accent); border-radius:2px; margin-right:9px; vertical-align:middle; }
+  p, li { color:var(--ink-soft); font-size:.95rem; }
+  ul, ol { margin:8px 0 8px 20px; }
+  li + li { margin-top:6px; }
+  li b, p b { color:var(--ink); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px 28px; }
+  .card + .card { margin-top:14px; }
+  .vgrid { display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start; }
+  @media (max-width:760px){ .vgrid { grid-template-columns:1fr; } }
+  .vcard { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:14px; }
+  .vcard .yt { position:relative; width:100%; padding-top:56.25%; border-radius:10px; overflow:hidden; background:#000; }
+  .vcard .yt iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .vcard h3 { font-size:1rem; font-weight:700; margin:12px 4px 2px; }
+  .vcard p { font-size:.86rem; margin:2px 4px 4px; }
+  .step-arrow { text-align:center; color:var(--accent); font-weight:900; font-size:1.2rem; margin:6px 0 18px; }
+  .flow { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:20px 26px; font-size:.92rem; color:var(--ink-soft); }
+  .flow b { color:var(--accent); }
+  .paper { border-left:4px solid var(--accent); }
+  .paper h3 { font-size:1.02rem; font-weight:700; }
+  .paper .en { font-size:.88rem; color:var(--ink-soft); font-style:italic; margin-top:2px; }
+  .paper .authors { font-size:.86rem; margin-top:8px; }
+  .links { display:flex; flex-wrap:wrap; gap:12px; margin:8px 0 40px; }
+  .links a { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff; text-decoration:none; padding:10px 22px; border-radius:999px; font-weight:700; font-size:.9rem; }
+  .links a.ghost { background:#fff; color:var(--accent); border:1.5px solid var(--accent); }
+  .links a:hover { opacity:.9; }
+  footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:36px 0 44px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="../index.html">LeeJongwon</a>
+    <a class="back" href="../index.html#projects">← Projects로 돌아가기</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="meta">2025 · 학부연구생 · InMO LAB (한국항공대학교)</div>
+    <h1>다중 로봇 지능 연구 —<br>P2P 기반 MRTA 검증용 HILS 테스트베드 구축</h1>
+    <p class="lead">
+      다중 로봇 작업 할당(MRTA) 알고리즘은 보통 시뮬레이션으로만 검증되어 실물 환경과의 괴리,
+      중앙집중식 통신 의존, 높은 실험 비용이라는 한계를 갖습니다. 이를 해결하기 위해
+      저가형 소형 로봇 MONA와 ESP-NOW P2P 통신을 활용해, 시뮬레이션(SILS)에서 검증한
+      MRTA 알고리즘을 실물 하드웨어(HILS)로 확장 검증하는 테스트베드를 구축했습니다.
+    </p>
+    <div class="chips">
+      <span>Multi-Robot</span><span>MRTA</span><span>HILS</span><span>ESP-NOW P2P</span><span>MONA</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>SILS → HILS 검증 과정</h2>
+    <p style="margin-bottom:18px">동일한 다중 로봇 협업(작업 할당) 알고리즘을 <b>① 시뮬레이션에서 검증(SILS)</b>한 뒤, <b>② 실물 MONA 로봇 테스트베드(HILS)로 확장</b>했습니다. 오른쪽 HILS 테스트베드 구축이 제가 담당한 부분입니다.</p>
+    <div class="vgrid">
+      <div class="vcard">
+        <div class="yt"><iframe src="https://www.youtube.com/embed/zlmcgzaiWJI" title="SILS - Multi-Robot Task Allocation Simulation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        <h3>① SILS — 시뮬레이션 검증</h3>
+        <p>SPACE 시뮬레이터 기반 다중 로봇 작업 할당 알고리즘 검증</p>
+      </div>
+      <div class="vcard" style="border-color:var(--accent); border-width:1.5px;">
+        <div class="yt"><iframe src="https://www.youtube.com/embed/IQ_tCurUiyo" title="HILS - MONA Multi-Robot Testbed" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        <h3>② HILS — 실물 로봇 검증 <span style="color:var(--accent)">(담당 구축)</span></h3>
+        <p>동일 알고리즘을 MONA 실물 로봇 + P2P 통신으로 실시간 검증</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>테스트베드 시스템 구성</h2>
+    <div class="flow">
+      <b>천장 카메라</b> — MONA에 부착된 WhyCode 마커 촬영 → <b>마커 인식</b> — 각 로봇의 위치·자세 추정 →
+      <b>좌표 변환</b> — SPACE 시뮬레이터의 2차원 픽셀 좌표계로 변환 → <b>MONA Client</b> — Task까지의
+      상대 거리·각도 계산 후 명령 전송 → <b>MONA 로봇</b> — 명령 수행, 로봇 간 <b>ESP-NOW P2P</b>로
+      메시지 상호 교환 → <b>MRTA 알고리즘</b> — 교환된 정보 기반 분산 작업 할당 (conflict 해소)
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3 style="font-size:1rem; font-weight:700; margin-bottom:8px">담당 역할 — HILS 테스트베드 구축</h3>
+      <ul>
+        <li>MONA 소형 로봇의 <b>주행 제어·장애물 회피 동작</b> 구현 (ESP32 임베디드)</li>
+        <li><b>ESP-NOW 기반 P2P 통신</b>으로 중앙 서버 없이 로봇 간 직접 메시지 교환 구조 적용</li>
+        <li>카메라 측위 – 시뮬레이터 – 실물 로봇을 연동하는 <b>실시간 검증 루프</b> 구성 및 실험</li>
+        <li>SILS 검증 알고리즘의 HILS 이식 과정에서 발생하는 <b>시뮬-실물 괴리</b>(동역학·통신 지연) 분석</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>논문</h2>
+    <div class="card paper">
+      <h3>P2P 통신이 가능한 저가형 모바일 로봇 기반 다중 로봇 작업 할당 알고리즘 HILS 테스트베드</h3>
+      <div class="en">A P2P-Enabled HILS Testbed for Multi-Robot Task Allocation with Low-Cost Mobile Robots</div>
+      <div class="authors">임채영 · <b>이종원</b> · 장인모 — 한국로봇종합학술대회(KROC) 논문 제출 (2025 동계)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>관련 링크</h2>
+    <div class="links">
+      <a href="https://sites.google.com/view/inmolab" target="_blank" rel="noopener">🔬 InMO LAB 공식 홈페이지</a>
+      <a class="ghost" href="https://github.com/kaon1092/MONA_ESP_lib" target="_blank" rel="noopener">💻 MONA ESP 제어 라이브러리 (GitHub)</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Lee Jongwon · <a href="../index.html" style="color:var(--accent); text-decoration:none;">kaon1092.github.io</a></footer>
+
+</body>
+</html>
