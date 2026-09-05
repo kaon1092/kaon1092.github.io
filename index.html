@@ -134,6 +134,17 @@
   .hl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: start; }
   .hl-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; }
 
+  /* ── Publications ── */
+  .pub-card { border-left: 4px solid var(--accent); }
+  .pub-card h3 { font-size: 1.02rem; font-weight: 700; line-height: 1.5; }
+  .pub-card .en { font-size: .86rem; color: var(--ink-soft); font-style: italic; margin-top: 4px; }
+  .pub-card .authors { font-size: .87rem; color: var(--ink-soft); margin-top: 10px; }
+  .pub-card .authors b { color: var(--ink); }
+  .pub-card .venue { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center; }
+  .pub-card .venue span { background: var(--accent-soft); color: var(--accent); padding: 3px 12px; border-radius: 999px; font-size: .78rem; font-weight: 700; }
+  .pub-card .venue a { color: var(--accent); font-size: .84rem; font-weight: 700; text-decoration: none; }
+  .pub-card .venue a:hover { text-decoration: underline; }
+
   /* ── Contact ── */
   #contact { background: #fff; }
   #contact .card { text-align: center; padding: 46px 28px; }
@@ -163,6 +174,7 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#highlights">Highlights</a></li>
+      <li><a href="#publications">Publications</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -359,6 +371,34 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <h2>Publications</h2>
+    <p class="sub">논문 · 학술 발표</p>
+
+    <div class="card pub-card">
+      <h3>ROS robot_localization Dual EKF의 위치추정 정확성 검증과 자율주행 경로추종 응용</h3>
+      <div class="en">Validation of Pose Estimation Accuracy of ROS robot_localization Dual EKF and Its Application to Autonomous Driving Path Following</div>
+      <div class="authors"><b>이종원</b> · 최길모 · 오경주</div>
+      <div class="venue"><span>1저자 · 포스터 발표</span><span>한국자동차공학회 추계학술대회 (2025)</span><a href="projects/kauvoy-localization.html">관련 프로젝트 →</a></div>
+    </div>
+
+    <div class="card pub-card">
+      <h3>P2P 통신이 가능한 저가형 모바일 로봇 기반 다중 로봇 작업 할당 알고리즘 HILS 테스트베드</h3>
+      <div class="en">A P2P-Enabled HILS Testbed for Multi-Robot Task Allocation with Low-Cost Mobile Robots</div>
+      <div class="authors">임채영 · <b>이종원</b> · 장인모</div>
+      <div class="venue"><span>공동저자 · 논문 제출</span><span>한국로봇종합학술대회 KROC (2025 동계)</span><a href="projects/inmo-lab.html">관련 프로젝트 →</a></div>
+    </div>
+
+    <div class="card pub-card">
+      <h3>6자유도 지대공 미사일(SAM) 시뮬레이션 구축과 적응형 외란 보상기(ADRC) 설계 및 Unity 3D 가시화</h3>
+      <div class="en">6-DOF Surface-to-Air Missile Simulation Framework with Adaptive Disturbance Rejection Control (ADRC) and Unity 3D Visualization</div>
+      <div class="authors">최승돈 · 김민규 · <b>이종원</b> · 이선우 · 남영우(지도교수)</div>
+      <div class="venue"><span>공동저자</span><span>항공우주시스템공학회 제8회 전국 대학생 캡스톤 디자인 경진대회 (2026) — 우수상</span></div>
     </div>
   </div>
 </section>
