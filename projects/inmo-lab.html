@@ -105,6 +105,21 @@
 <section>
   <div class="wrap">
     <h2>테스트베드 시스템 구성</h2>
+    <div class="vgrid" style="margin-bottom:16px">
+      <div class="vcard">
+        <img src="../assets/pj/inmo-mona.jpg" alt="MONA 소형 모바일 로봇" style="width:100%; border-radius:10px; display:block;" loading="lazy">
+        <h3>MONA 소형 모바일 로봇</h3>
+        <p>ESP32 기반 저가형 오픈소스 로봇 플랫폼 — 테스트베드의 실물 에이전트 (사진: University of Manchester MONA 프로젝트)</p>
+      </div>
+      <div class="card" style="align-self:stretch">
+        <h3 style="font-size:1rem; font-weight:700; margin-bottom:8px">왜 MONA인가</h3>
+        <ul>
+          <li><b>저비용·소형</b> — 좁은 실내 공간에서도 다수 로봇 실험 가능, MRTA 검증 비용을 크게 낮춤</li>
+          <li><b>ESP32 내장</b> — ESP-NOW 프로토콜로 중앙 서버 없이 로봇 간 P2P 직접 통신</li>
+          <li><b>오픈소스 플랫폼</b> — 제어 라이브러리(MONA_ESP_lib)를 직접 수정해 주행·회피 동작 구현</li>
+        </ul>
+      </div>
+    </div>
     <div class="flow">
       <b>천장 카메라</b> — MONA에 부착된 WhyCode 마커 촬영 → <b>마커 인식</b> — 각 로봇의 위치·자세 추정 →
       <b>좌표 변환</b> — SPACE 시뮬레이터의 2차원 픽셀 좌표계로 변환 → <b>MONA Client</b> — Task까지의
