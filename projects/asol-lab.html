@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kaon1092.github.io/projects/asol-lab.html">
+<meta property="og:title" content="로터 CFD 해석 (ASOL Lab) | 이종원">
+<meta property="og:description" content="OpenFOAM 로터·프로펠러 비정상 CFD 해석과 후류 시각화, 실외 로터 실험">
+<meta property="og:image" content="https://kaon1092.github.io/assets/cards/asol.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<title>로터 CFD 해석 (ASOL Lab) | 이종원 Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f6f7fb; --ink:#16181d; --ink-soft:#5b6272; --accent:#3f5efb; --accent-soft:#e9edfe; --line:#e7e9f0; --radius:16px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 24px; }
+  nav { position:sticky; top:0; z-index:10; background:#fff; box-shadow:0 1px 12px rgba(20,24,40,.06); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { font-family:'Poppins',sans-serif; font-weight:700; font-size:1.2rem; color:var(--ink); text-decoration:none; position:relative; padding-left:12px; }
+  .logo::before { content:""; position:absolute; left:0; top:50%; transform:translateY(-52%); width:30px; height:30px; border-radius:50%; background:var(--accent); z-index:-1; }
+  nav a.back { color:var(--accent); text-decoration:none; font-weight:700; font-size:.9rem; }
+  header { background:#fff; padding:56px 0 44px; border-bottom:1px solid var(--line); }
+  .meta { color:var(--accent); font-weight:700; font-size:.88rem; }
+  h1 { font-size:clamp(1.6rem,4vw,2.3rem); font-weight:900; margin:10px 0 14px; }
+  .lead { color:var(--ink-soft); max-width:760px; font-size:.98rem; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+  .chips span { background:var(--accent-soft); color:var(--accent); padding:5px 14px; border-radius:999px; font-size:.82rem; font-weight:700; }
+  section { padding:52px 0 8px; }
+  h2 { font-size:1.3rem; font-weight:900; margin-bottom:16px; }
+  h2::before { content:""; display:inline-block; width:20px; height:4px; background:var(--accent); border-radius:2px; margin-right:9px; vertical-align:middle; }
+  p, li { color:var(--ink-soft); font-size:.95rem; }
+  ul { margin:8px 0 8px 20px; }
+  li + li { margin-top:6px; }
+  li b, p b { color:var(--ink); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px 28px; }
+  figure { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:12px; margin:0; }
+  figure video, figure img { width:100%; border-radius:10px; display:block; }
+  figcaption { color:var(--ink-soft); font-size:.83rem; margin-top:8px; text-align:center; }
+  .g2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+  @media (max-width:720px){ .g2, .g3 { grid-template-columns:1fr; } }
+  .wide { margin:14px 0; }
+  footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:36px 0 44px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="../index.html">LeeJongwon</a>
+    <a class="back" href="../index.html#projects">← Projects로 돌아가기</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="meta">2026 · 학부연구생 · ASOL Lab (한국항공대학교)</div>
+    <h1>로터·프로펠러 CFD 해석 —<br>후류 시각화와 실외 로터 실험</h1>
+    <p class="lead">
+      OpenFOAM 기반으로 프로펠러·로터의 비정상(unsteady) 유동을 해석하고,
+      회전이 만들어내는 후류(wake)를 정량적으로 시각화하는 연구를 수행하고 있습니다.
+      GemFan 프로펠러 AMI 회전격자 해석에서 시작해 RBWB(로터-BWB) 형상의 다회전 호버링
+      해석까지 확장했고, 실외 로터 스탠드 실험으로 해석과 실측을 연결하고 있습니다.
+    </p>
+    <div class="chips">
+      <span>OpenFOAM</span><span>CFD</span><span>AMI · Overset</span><span>후류 해석</span><span>ParaView</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>후류(Wake) 시각화 결과</h2>
+    <figure class="wide">
+      <img src="../assets/pj/asol-qcrit.jpg" alt="Q-criterion 후류 시각화" loading="lazy">
+      <figcaption>Q-criterion 등가면으로 포착한 로터 팁 볼텍스 — 블레이드 끝에서 말려 나가는 나선형 후류</figcaption>
+    </figure>
+    <div class="g3">
+      <figure>
+        <img src="../assets/pj/asol-helix.jpg" alt="팁 볼텍스 헬릭스 추적" loading="lazy">
+        <figcaption>팁 볼텍스 코어의 3D 헬릭스 궤적 추적</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/pj/asol-wake.jpg" alt="후류 발달 과정" loading="lazy">
+        <figcaption>회전수별 후류 발달 — 다운워시 기둥의 성장</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/pj/asol-fm.jpg" alt="토크·FM 이력" loading="lazy">
+        <figcaption>추력·토크·FM(Figure of Merit) 수렴 이력</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>CFD 시각화 영상</h2>
+    <figure class="wide">
+      <video controls muted playsinline preload="metadata"><source src="../assets/pj/asol-paraview.mp4" type="video/mp4"></video>
+      <figcaption>ParaView 후처리 — 프로펠러 회전 유동장과 등가면 시각화 작업 화면</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>실외 로터 실험 (2026.08)</h2>
+    <p style="margin-bottom:16px">해석 결과를 실측과 비교하기 위해, 로터를 테스트 스탠드에 장착해 실외 회전 실험을 수행했습니다.</p>
+    <div class="g2">
+      <figure>
+        <video controls muted playsinline preload="metadata"><source src="../assets/pj/asol-ext1.mp4" type="video/mp4"></video>
+        <figcaption>실외 로터 스탠드 회전 실험 ①</figcaption>
+      </figure>
+      <figure>
+        <video controls muted playsinline preload="metadata"><source src="../assets/pj/asol-ext2.mp4" type="video/mp4"></video>
+        <figcaption>실외 로터 스탠드 회전 실험 ②</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>수행 내용</h2>
+    <ul>
+      <li><b>GemFan 프로펠러 3D 비정상 해석</b> — AMI(회전 격자 인터페이스) 기반 OpenFOAM 케이스 구축, 시간 간격·격자 설정에 따른 수렴성 확보</li>
+      <li><b>RBWB 로터 후류 해석</b> — 다회전(10 rev) 호버링 해석으로 후류가 충분히 발달할 때까지 시뮬레이션, 회전수별 후류 구조 분석</li>
+      <li><b>후처리 파이프라인 구축</b> — Q-criterion 등가면, 팁 볼텍스 코어 헬릭스 추적, 스팬 방향 하중 분포 등 ParaView·Python 기반 정량 시각화 12종 제작</li>
+      <li><b>성능 정량화</b> — 추력·토크·FM(Figure of Merit) 이력으로 해석 신뢰성 검증</li>
+      <li><b>해석-실험 연계</b> — 실외 로터 스탠드 실험을 수행해 해석 결과와 실측 비교 진행 중</li>
+      <li><b>랩세미나 발표</b> — 프로펠러 CFD, RBWB 후류 시각화 주제로 정기 세미나 발표 다수</li>
+    </ul>
+    <div class="card" style="margin-top:16px">
+      <p>이 연구는 무인기(UAV) 공력 설계의 기반이 되는 <b>회전익 유동의 물리적 이해</b>를 목표로 하며,
+      시뮬레이션(해석)과 실험(실측)을 오가며 검증하는 연구 방식을 훈련하는 과정입니다.</p>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Lee Jongwon · <a href="../index.html" style="color:var(--accent); text-decoration:none;">kaon1092.github.io</a></footer>
+
+</body>
+</html>
