@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kaon1092.github.io/projects/capstone-6dof.html">
+<meta property="og:title" content="6DOF 유도무기 시뮬레이션 | 이종원">
+<meta property="og:description" content="6-DOF SAM 시뮬레이션 + 적응형 ADRC + Unity 3D — 캡스톤 경진대회 우수상">
+<meta property="og:image" content="https://kaon1092.github.io/assets/cards/capstone.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <title>6DOF 유도무기 시뮬레이션 | 이종원 Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -37,6 +44,9 @@
   .paper .en { font-size:.86rem; color:var(--ink-soft); font-style:italic; margin-top:4px; }
   .paper .authors { font-size:.86rem; margin-top:8px; }
   footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:36px 0 44px; }
+  .g2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+  @media (max-width:720px){ .g2, .g3 { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -152,7 +162,7 @@
 <section>
   <div class="wrap">
     <h2>검증 결과 — 몬테카를로 시뮬레이션</h2>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+    <div class="g2">
       <figure style="margin:0">
         <img src="../assets/pj/capstone-cep.jpg" alt="CEP 비교" loading="lazy">
         <figcaption>보상 미적용 대비 ESO 적용 시 CEP·명중률 개선 (N=100 몬테카를로)</figcaption>
@@ -181,7 +191,7 @@
   <div class="wrap">
     <h2>포스터 발표 — 디오라마 제작</h2>
     <p style="margin-bottom:16px">경진대회 포스터 발표에서는 시뮬레이션 대상인 MIM-23B 미사일을 <b>3D 프린팅 → 도색 → 디오라마</b>로 직접 제작해 전시했습니다.</p>
-    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;">
+    <div class="g3">
       <figure style="margin:0">
         <img src="../assets/pj/capstone-print.jpg" alt="3D 프린팅 출력물" loading="lazy">
         <figcaption>MIM-23B 기체 3D 프린팅</figcaption>
