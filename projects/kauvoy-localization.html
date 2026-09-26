@@ -43,6 +43,10 @@
   figcaption { color:var(--ink-soft); font-size:.85rem; margin-top:10px; text-align:center; }
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
   @media (max-width:720px){ .grid2 { grid-template-columns:1fr; } }
+  .grid2 figure { margin:10px 0; }
+  .own, .co { display:inline-block; font-size:.72rem; font-weight:700; padding:2px 10px; border-radius:999px; margin-left:6px; vertical-align:middle; }
+  .own { background:var(--accent); color:#fff; }
+  .co { background:#eef0f5; color:var(--ink-soft); }
   .note { background:var(--accent-soft); border-radius:12px; padding:14px 18px; font-size:.9rem; color:var(--ink); margin:24px 0 40px; }
   footer { text-align:center; color:var(--ink-soft); font-size:.8rem; padding:40px 0; }
 </style>
@@ -229,6 +233,73 @@
     <li>🏁 <b>대회 본선 진출</b> (2025.10.31 – 11.01)</li>
     <li>📄 <b>2025 한국자동차공학회 추계학술대회 포스터 발표</b> — 실차 측위 연구 내용을 1저자로 직접 발표</li>
   </ul>
+</section>
+
+<section>
+  <h2>2025 실차 실험 기록</h2>
+  <p>2025.05 – 2025.10 동안 ERP42 실차와 교내 트랙에서 진행한 실험 기록입니다. 측위는 제가 담당한 파트이고, 인지·경로 계획·주차는 측위 결과를 받아 쓰는 협업 파트입니다.</p>
+
+  <h3>① 측위 — Dual EKF 검증 <span class="own">담당</span></h3>
+  <div class="grid2">
+    <figure>
+      <img src="../assets/kv25/ekf-loop.jpg" alt="Dual EKF 추정 궤적" loading="lazy">
+      <figcaption>트랙 주회 시 Dual EKF 추정 궤적 (/odometry/filtered_map) — 학술대회 논문 실험 결과</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv25/ekf-track.mp4" type="video/mp4"></video>
+      <figcaption>트랙 주행 중 실시간 측위 궤적 (빨간색) — 카메라 영상과 함께 확인 (2025.09)</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <img src="../assets/kv25/loc-rqt.jpg" alt="측위 노드 구성" loading="lazy">
+    <figcaption>실차 측위 노드 구성 (rqt_graph) — 엔코더 휠 오도메트리 · VectorNav IMU · u-blox RTK-GPS → ekf_se_odom / ekf_se_map + navsat_transform</figcaption>
+  </figure>
+  <figure>
+    <img src="../assets/kv25/slam-map.jpg" alt="LiDAR SLAM 맵" loading="lazy">
+    <figcaption>LiDAR SLAM 기반 교내 맵 생성 실험 (2025.08) — GPS 음영 구간 대비 측위 방안 검토</figcaption>
+  </figure>
+
+  <h3>② 인지 → 경로 생성 — 라바콘 트랙 · 유턴 <span class="co">협업</span></h3>
+  <div class="grid2">
+    <figure>
+      <img src="../assets/kv25/cone-fusion.jpg" alt="카메라-LiDAR 라바콘 인지" loading="lazy">
+      <figcaption>카메라 YOLO(색상·신뢰도) + LiDAR 클러스터 결합 라바콘 인지 (2025.05)</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/kv25/cone-track.jpg" alt="라바콘 트랙 경로" loading="lazy">
+      <figcaption>좌·우 라바콘(파랑·노랑) 사이 중앙 경로 생성과 실제 주행 궤적 (2025.08)</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <video controls muted playsinline preload="metadata"><source src="../assets/kv25/track-cone-path.mp4" type="video/mp4"></video>
+    <figcaption>실차 라바콘 트랙 주행 — 파노라마 카메라 인지와 실시간 후보 경로 생성 (2025.08.24)</figcaption>
+  </figure>
+  <div class="grid2">
+    <figure>
+      <img src="../assets/kv25/uturn-plan.jpg" alt="유턴 경로" loading="lazy">
+      <figcaption>라바콘 유턴 구간 경로 계획과 주행 궤적 (2025.10)</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv25/uturn-path.mp4" type="video/mp4"></video>
+      <figcaption>유턴 미션 실험 — 콘 배치를 따라 생성되는 U자 경로 (2025.09)</figcaption>
+    </figure>
+  </div>
+
+  <h3>③ 주차 미션 — 표지판 인식 · 사선주차 <span class="co">협업</span></h3>
+  <figure>
+    <img src="../assets/kv25/sign-detect.jpg" alt="주차 구역 표지판 인식" loading="lazy">
+    <figcaption>주차 구역 표지판(A3·B3) 인식 — 다중 카메라 파노라마 스티칭 (2025.09)</figcaption>
+  </figure>
+  <div class="grid2">
+    <figure>
+      <img src="../assets/kv25/parking-spline.jpg" alt="사선주차 경로" loading="lazy">
+      <figcaption>주차 구역 진입 경로 — 핵심 경유점 기반 Cubic Spline, 1 m 간격 샘플링 (2025.09)</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="../assets/kv25/diagonal-parking.mp4" type="video/mp4"></video>
+      <figcaption>사선주차 실험 — 카메라 인지와 주차 구역 라바콘 검출 (2025.09)</figcaption>
+    </figure>
+  </div>
 </section>
 
 <section>
