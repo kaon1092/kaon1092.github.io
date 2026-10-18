@@ -52,7 +52,8 @@
   <text x="880" y="120" font-size="20" font-weight="bold" fill="#2a78d6">② control_decision — traffic 분기 (50Hz, 최종 발행자)</text>
 
   <rect x="880" y="152" width="330" height="58" rx="10" fill="#f1f0ec" stroke="#b9b7b0" stroke-width="1.5"/>
-  <text x="1045" y="188" font-size="15.5" fill="#0b0b0b" text-anchor="middle">입력: d(신선 1.5s), 현재 속도 v</text>
+  <text x="1045" y="176" font-size="14" fill="#0b0b0b" text-anchor="middle">입력: MPC · Fallback 명령</text>
+  <text x="1045" y="198" font-size="14" fill="#0b0b0b" text-anchor="middle">d (신선 1.5s) · 현재 속도 v</text>
 
   <!-- 분기 1: 비상 -->
   <path d="M 1045 210 L 1045 246" stroke="#52514e" stroke-width="1.8" marker-end="url(#a2)"/>
@@ -84,15 +85,30 @@
   <text x="1045" y="476" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">PASS — 개입 없음</text>
   <text x="1045" y="500" font-size="13.5" fill="#52514e" text-anchor="middle">감속은 planner 경유 v_target이 이미 수행 중</text>
 
-  <!-- 상한 merge -->
-  <rect x="880" y="560" width="760" height="86" rx="10" fill="#ffffff" stroke="#d8d7d2" stroke-width="1.5"/>
-  <text x="905" y="594" font-size="16" font-weight="bold" fill="#0b0b0b">공통: 전 소스 속도상한 merge (과속 가드에 합류)</text>
-  <text x="905" y="622" font-size="14.5" fill="#52514e" font-family="Consolas, monospace">limit = min(limit, v_allow + 0.5margin)</text>
-  <text x="1290" y="622" font-size="14" fill="#52514e">→ MPC가 죽어 fallback으로 전환돼도 신호는 준수</text>
+  <!-- 세 분기 → control_decision 최종 출력 -->
+  <path d="M 1045 518 L 1045 548" stroke="#008300" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+  <path d="M 1400 430 L 1400 548" stroke="#c98500" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+  <path d="M 1640 289 L 1662 289 L 1662 528 L 1450 528 L 1450 548" stroke="#e34948" stroke-width="2" fill="none" marker-end="url(#a2)"/>
 
-  <!-- 조향 강조 -->
-  <rect x="880" y="672" width="760" height="60" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2.5"/>
-  <text x="1260" y="709" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">세 분기 모두 조향(steering)은 MPC 값 그대로 → 제동 중에도 경로 유지</text>
+  <rect x="880" y="556" width="590" height="186" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2.5"/>
+  <text x="902" y="588" font-size="17" font-weight="bold" fill="#0b0b0b">③ control_decision 최종 출력 → /ctrl_cmd (50Hz)</text>
+  <text x="902" y="618" font-size="14.5" fill="#0b0b0b">선택된 분기의 brake + 전 소스 속도상한 merge (과속 가드 합류)</text>
+  <text x="902" y="644" font-size="14.5" fill="#52514e" font-family="Consolas, monospace">limit = min(limit, v_allow + 0.5margin)</text>
+  <text x="902" y="670" font-size="13.5" fill="#52514e">→ MPC가 죽어 fallback으로 전환돼도 신호는 준수</text>
+  <text x="902" y="712" font-size="15.5" font-weight="bold" fill="#2a78d6">세 분기 모두 조향(steering)은 MPC 값 그대로</text>
+  <text x="902" y="732" font-size="13.5" fill="#52514e">→ 제동 중에도 경로 유지</text>
+
+  <rect x="1500" y="606" width="140" height="86" rx="10" fill="#f1f0ec" stroke="#52514e" stroke-width="1.8"/>
+  <text x="1570" y="642" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">MORAI</text>
+  <text x="1570" y="666" font-size="12" fill="#52514e" text-anchor="middle">UDP :9093</text>
+  <line x1="1470" y1="649" x2="1492" y2="649" stroke="#52514e" stroke-width="2" marker-end="url(#a2)"/>
+
+  <!-- 왼쪽 출력: 상류 주입 → LPP → MPC → decision -->
+  <rect x="70" y="688" width="700" height="56" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.5"/>
+  <text x="95" y="714" font-size="14.5" font-weight="bold" fill="#0b0b0b">출력: /traffic/speed_limit (v_allow)</text>
+  <text x="95" y="734" font-size="13" fill="#52514e">→ LPP v_target 상한으로 상류 주입 → MPC가 감속을 포함한 명령 생성</text>
+  <path d="M 770 716 L 830 716 L 830 181 L 872 181" stroke="#2a78d6" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+  <text x="854" y="452" font-size="12.5" fill="#2a78d6" transform="rotate(-90 854 452)" text-anchor="middle">LPP → MPC 명령 (/control/mpc_cmd)</text>
 
   <!-- 검증 결과 요약 -->
   <rect x="40" y="770" width="1600" height="96" rx="10" fill="#eafaf3" stroke="#008300" stroke-width="1.5"/>

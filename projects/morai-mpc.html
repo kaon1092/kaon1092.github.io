@@ -90,12 +90,16 @@
     한 세트로 정합 최적화하므로 감속 중에도 경로 추종이 유지됩니다.
   </p>
   <figure>
-    <img src="../assets/morai-pipeline.svg" alt="전체 파이프라인 다이어그램">
-    <figcaption>전체 데이터 흐름 — UDP 브리지 → 이중 EKF 측위(50Hz) → 전역/지역 경로(20Hz) → 신호등 감속 주입 → MPC 제어(50Hz)</figcaption>
+    <img src="../assets/morai-control-arch.svg" alt="제어 시스템 아키텍처 다이어그램">
+    <figcaption>① 제어 시스템 아키텍처 — GPS·IMU·Encoder → robot_localization(Dual EKF) → /odometry/filtered_map 측위 버스 위에서 LPP가 경로·목표속도를 만들고, MPC·Fallback이 병렬 계산한 명령을 Control Decision이 중재해 MORAI로 전달</figcaption>
   </figure>
   <figure>
-    <img src="../assets/morai-decision.svg" alt="감속 법칙 및 decision 분기 다이어그램">
-    <figcaption>신호등 감속 법칙과 control_decision 노드의 분기 구조</figcaption>
+    <img src="../assets/morai-pipeline.svg" alt="신호등 정지 제어 데이터 흐름 다이어그램">
+    <figcaption>② 신호등 정지 제어 — 인지(traffic_light_zone)와 감속 계획을 분리하고, 감속은 LPP의 v_target에 상류 주입해 제어기로 전달</figcaption>
+  </figure>
+  <figure>
+    <img src="../assets/morai-decision.svg" alt="감속 계획 및 control_decision 분기 다이어그램">
+    <figcaption>③ 감속 계획과 decision 분기 — 감속은 LPP → MPC 명령에 포함되고, control_decision이 비상·HOLD·PASS로 분기해 /ctrl_cmd로 MORAI에 최종 출력</figcaption>
   </figure>
 </section>
 
