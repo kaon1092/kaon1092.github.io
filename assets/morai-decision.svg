@@ -6,7 +6,7 @@
   </defs>
   <rect width="1680" height="900" fill="#fcfcfb"/>
 
-  <text x="40" y="56" font-size="27" font-weight="bold" fill="#0b0b0b">감속 계획과 decision 분기 — "필요한 만큼만 세게, 조향은 끝까지 MPC"</text>
+  <text x="40" y="56" font-size="27" font-weight="bold" fill="#0b0b0b">감속 계획과 control_decision 분기 — 감속은 상황에 맞게, 조향은 MPC 유지</text>
 
   <!-- ===== 왼쪽: traffic_speed_node ===== -->
   <text x="40" y="120" font-size="20" font-weight="bold" fill="#2a78d6">① traffic_speed_node — 감속 계획 (20Hz)</text>
@@ -40,8 +40,8 @@
     <text x="95" y="434">a_cmd   = clamp(1.1·a_req,  1.5, 3.5)  [m/s²]</text>
     <text x="95" y="464">v_allow = √(2 · a_cmd · (d − margin))</text>
   </g>
-  <text x="95" y="500" font-size="14" fill="#52514e">여유가 있으면 쾌적(1.5)하게, 촉박하면 세게(최대 3.5) — d가 20Hz로 줄면</text>
-  <text x="95" y="522" font-size="14" fill="#52514e">v_allow가 물리 정지 곡선을 타고 0으로 수렴 → 차가 곡선을 따라 내려온다</text>
+  <text x="95" y="500" font-size="14" fill="#52514e">거리 여유가 있으면 1.5, 부족하면 최대 3.5 m/s²로 감속 — d가 20Hz로 갱신되며</text>
+  <text x="95" y="522" font-size="14" fill="#52514e">v_allow가 정지 곡선을 따라 0으로 줄어들어 차량이 정지선 앞에 부드럽게 정지</text>
 
   <!-- 재출발 -->
   <rect x="70" y="570" width="700" height="96" rx="10" fill="#ffffff" stroke="#d8d7d2" stroke-width="1.5"/>
@@ -49,7 +49,7 @@
   <text x="95" y="636" font-size="14.5" fill="#52514e">초록 전환 시 상한을 즉시 풀지 않고 1.5m/s²로 서서히 상향 → 순항 도달 시 -1(해제)</text>
 
   <!-- ===== 오른쪽: decision ===== -->
-  <text x="880" y="120" font-size="20" font-weight="bold" fill="#2a78d6">② control_decision — traffic 분기 (50Hz, 최종 발행자)</text>
+  <text x="880" y="120" font-size="20" font-weight="bold" fill="#2a78d6">② control_decision — traffic 분기 (50Hz, 최종 명령 출력)</text>
 
   <rect x="880" y="152" width="330" height="58" rx="10" fill="#f1f0ec" stroke="#b9b7b0" stroke-width="1.5"/>
   <text x="1045" y="176" font-size="14" fill="#0b0b0b" text-anchor="middle">입력: MPC · Fallback 명령</text>
@@ -75,15 +75,15 @@
   <text x="1252" y="366" font-size="13.5" fill="#c98500" font-weight="bold">YES</text>
   <rect x="1338" y="344" width="302" height="86" rx="10" fill="#fdf6e3" stroke="#eda100" stroke-width="2.5"/>
   <text x="1489" y="376" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">HOLD 정지 유지</text>
-  <text x="1489" y="402" font-size="14" fill="#52514e" text-anchor="middle">brake 0.4 (크리핑 방지)</text>
-  <text x="1489" y="420" font-size="12.5" fill="#52514e" text-anchor="middle">planner v_min 1.0 플로어 보완 (마지막 2m)</text>
+  <text x="1489" y="402" font-size="14" fill="#52514e" text-anchor="middle">brake 0.4 (정지 중 밀림 방지)</text>
+  <text x="1489" y="420" font-size="12.5" fill="#52514e" text-anchor="middle">마지막 2m: LPP 최저속도(1.0) 이하 정지 처리</text>
 
   <!-- 분기 3: PASS -->
   <path d="M 1045 406 L 1045 442" stroke="#52514e" stroke-width="1.8" marker-end="url(#a2)"/>
   <text x="1058" y="430" font-size="13" fill="#52514e">NO</text>
   <rect x="880" y="446" width="330" height="72" rx="10" fill="#eafaf3" stroke="#008300" stroke-width="2"/>
   <text x="1045" y="476" font-size="17" font-weight="bold" fill="#0b0b0b" text-anchor="middle">PASS — 개입 없음</text>
-  <text x="1045" y="500" font-size="13.5" fill="#52514e" text-anchor="middle">감속은 planner 경유 v_target이 이미 수행 중</text>
+  <text x="1045" y="500" font-size="13.5" fill="#52514e" text-anchor="middle">감속은 LPP 목표 속도에 이미 반영됨</text>
 
   <!-- 세 분기 → control_decision 최종 출력 -->
   <path d="M 1045 518 L 1045 548" stroke="#008300" stroke-width="2" fill="none" marker-end="url(#a2)"/>
@@ -92,9 +92,9 @@
 
   <rect x="880" y="556" width="590" height="186" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2.5"/>
   <text x="902" y="588" font-size="17" font-weight="bold" fill="#0b0b0b">③ control_decision 최종 출력 → /ctrl_cmd (50Hz)</text>
-  <text x="902" y="618" font-size="14.5" fill="#0b0b0b">선택된 분기의 brake + 전 소스 속도상한 merge (과속 가드 합류)</text>
+  <text x="902" y="618" font-size="14.5" fill="#0b0b0b">선택된 분기의 brake 적용 + 모든 제어기 명령에 속도 상한 적용</text>
   <text x="902" y="644" font-size="14.5" fill="#52514e" font-family="Consolas, monospace">limit = min(limit, v_allow + 0.5margin)</text>
-  <text x="902" y="670" font-size="13.5" fill="#52514e">→ MPC가 죽어 fallback으로 전환돼도 신호는 준수</text>
+  <text x="902" y="670" font-size="13.5" fill="#52514e">→ MPC 이상으로 fallback 전환 시에도 신호 준수</text>
   <text x="902" y="712" font-size="15.5" font-weight="bold" fill="#2a78d6">세 분기 모두 조향(steering)은 MPC 값 그대로</text>
   <text x="902" y="732" font-size="13.5" fill="#52514e">→ 제동 중에도 경로 유지</text>
 
@@ -103,10 +103,10 @@
   <text x="1570" y="666" font-size="12" fill="#52514e" text-anchor="middle">UDP :9093</text>
   <line x1="1470" y1="649" x2="1492" y2="649" stroke="#52514e" stroke-width="2" marker-end="url(#a2)"/>
 
-  <!-- 왼쪽 출력: 상류 주입 → LPP → MPC → decision -->
+  <!-- 왼쪽 출력: LPP 목표 속도 반영 → MPC → decision -->
   <rect x="70" y="688" width="700" height="56" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.5"/>
   <text x="95" y="714" font-size="14.5" font-weight="bold" fill="#0b0b0b">출력: /traffic/speed_limit (v_allow)</text>
-  <text x="95" y="734" font-size="13" fill="#52514e">→ LPP v_target 상한으로 상류 주입 → MPC가 감속을 포함한 명령 생성</text>
+  <text x="95" y="734" font-size="13" fill="#52514e">→ LPP 목표 속도(v_target)의 상한으로 반영 → MPC가 감속을 포함한 명령 생성</text>
   <path d="M 770 716 L 830 716 L 830 181 L 872 181" stroke="#2a78d6" stroke-width="2" fill="none" marker-end="url(#a2)"/>
   <text x="854" y="452" font-size="12.5" fill="#2a78d6" transform="rotate(-90 854 452)" text-anchor="middle">LPP → MPC 명령 (/control/mpc_cmd)</text>
 

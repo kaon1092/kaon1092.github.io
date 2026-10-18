@@ -50,7 +50,7 @@
     <h1>KAUVOY 실차 자율주행 — 심화 기술 자료</h1>
     <p class="lead">
       KAUVOY 프로젝트 페이지에서 다루지 못한 시스템 패키지 구성,
-      코드 레벨의 동작 원리와 실패 분석을 정리한 자료입니다.
+      코드 수준의 동작 원리와 실패 분석을 정리한 자료입니다.
     </p>
   </div>
 </header>
@@ -153,7 +153,7 @@
 ├── vectornav/               # IMU 드라이버 (VectorNav)
 ├── ublox_f9p/               # RTK-GPS + NTRIP
 ├── robot_localization/      # Dual EKF (ekf_localization ×2 + navsat_transform)
-├── pure_pursuit/            # 경로 발행·추종 + gps_odom_tf.py (GPS-EKF 정합, 담당)
+├── pure_pursuit/            # 경로 발행·추종 + gps_odom_tf.py (GPS-EKF 좌표 정렬, 담당)
 ├── 0929_parallel....py      # Reeds-Shepp 기반 평행주차 플래너 (595줄)
 ├── Stanley/                 # Stanley 제어기 실험 + rosbag 주행 데이터
 ├── velodyne/, yolov9_ros/   # LiDAR·비전 인지 (팀)
@@ -177,7 +177,7 @@ odom.pose.covariance = [0.02, ..., 0.2]   # 공분산 명시 → robot_localizat
     <li><b>개선 ③</b> — 바퀴 반경·조향 한계·거리 보정계수를 <b>calibration_result.txt로 분리</b>해 대회 당일 재측정 값으로 교체 가능한 구조 (E-stop 초기 오프셋 이슈까지 주석으로 문서화)</li>
   </ul>
 
-  <h3>② gps_odom_tf — Dual EKF 출력·GPS 정합 노드 (담당)</h3>
+  <h3>② gps_odom_tf — Dual EKF 출력·GPS 좌표 정렬 노드 (담당)</h3>
 <pre># /odometry/filtered_map (Dual EKF 전역 출력) + /ublox_gps/fix (RTK-GPS) 구독
 utm_x, utm_y = utm.from_latlon(lat, lon)          # 위경도 → UTM
 x, y = utm_x - utm_x0, utm_y - utm_y0             # 경로 CSV 기준 원점 상대좌표
@@ -199,7 +199,7 @@ publish /odometry/adjusted_utm  +  TF(utm → gps_base_link, 20Hz)</pre>
     <li>차량 외곽(OBB) 기반 <b>충돌 검사 + footprint offset</b>으로 경로 유효성 검증, 실패 시 재계획 서비스 호출</li>
   </ul>
   <div class="callout">
-    이 조합(휠 오도메트리 → Dual EKF → GPS 정합 → Pure Pursuit / RS 주차)이 2025 본선 진출의
+    이 조합(휠 오도메트리 → Dual EKF → GPS 좌표 정렬 → Pure Pursuit / RS 주차)이 2025 본선 진출의
     측위·판단 기반이며, 2026 MORAI 시뮬레이션의 MPC 스택으로 이어집니다.
   </div>
 </section>

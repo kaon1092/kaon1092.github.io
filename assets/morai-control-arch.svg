@@ -9,7 +9,7 @@
   </defs>
   <rect width="1680" height="1000" fill="#fcfcfb"/>
 
-  <text x="40" y="54" font-size="27" font-weight="bold" fill="#0b0b0b">제어 시스템 아키텍처 — Dual EKF 측위 위의 MPC · Fallback 이중 제어 (jw_ws 10.08)</text>
+  <text x="40" y="54" font-size="27" font-weight="bold" fill="#0b0b0b">제어 시스템 아키텍처 — Dual EKF 측위 기반 MPC · Fallback 제어 구조 (jw_ws 10.08)</text>
   <text x="40" y="84" font-size="15" fill="#52514e">센서 → 측위(robot_localization) → 지역 경로(LPP) → 병렬 제어기(MPC / Fallback) → Control Decision 중재 → MORAI</text>
 
   <!-- ===== Row A: 센서 ===== -->
@@ -35,7 +35,7 @@
   <text x="485" y="214" font-size="13" fill="#52514e" text-anchor="middle">EKF Local: IMU + Wheel → odom</text>
   <text x="485" y="236" font-size="13" fill="#52514e" text-anchor="middle">EKF Global: + GPS (navsat_transform) → map</text>
   <text x="485" y="266" font-size="13" fill="#0b0b0b" text-anchor="middle" font-family="Consolas, monospace">/odometry/filtered_map</text>
-  <text x="485" y="286" font-size="12.5" fill="#52514e" text-anchor="middle">50Hz · 전 노드 공통 측위</text>
+  <text x="485" y="286" font-size="12.5" fill="#52514e" text-anchor="middle">50Hz · 모든 노드가 사용</text>
 
   <!-- 전역 경로 -->
   <rect x="740" y="140" width="250" height="100" rx="10" fill="#f1f0ec" stroke="#52514e" stroke-width="1.5"/>
@@ -62,10 +62,10 @@
   <text x="1312" y="320" font-size="12" fill="#52514e">speed limit · avoid path</text>
   <text x="1312" y="338" font-size="12" fill="#52514e">· lane change</text>
 
-  <!-- ===== 측위 버스 ===== -->
+  <!-- ===== 공통 측위 토픽 ===== -->
   <rect x="40" y="452" width="1600" height="40" rx="8" fill="#f1f0ec" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="62" y="477" font-size="14" font-weight="bold" fill="#2a78d6">측위 버스  /odometry/filtered_map</text>
-  <text x="1092" y="477" font-size="13" fill="#2a78d6">LPP · MPC · Fallback · Decision 공통 구독</text>
+  <text x="62" y="477" font-size="14" font-weight="bold" fill="#2a78d6">/odometry/filtered_map (Dual EKF 측위 출력)</text>
+  <text x="1092" y="477" font-size="13" fill="#2a78d6">LPP · MPC · Fallback · Decision이 함께 구독</text>
   <line x1="485" y1="302" x2="485" y2="446" stroke="#2a78d6" stroke-width="2.2" marker-end="url(#cb)"/>
   <line x1="780" y1="452" x2="780" y2="434" stroke="#2a78d6" stroke-width="2" marker-end="url(#cb)"/>
 
@@ -76,12 +76,12 @@
 
   <!-- ===== Row C: 병렬 제어기 ===== -->
   <rect x="280" y="516" width="1000" height="152" rx="14" fill="none" stroke="#9a9890" stroke-width="1.4" stroke-dasharray="7 5"/>
-  <text x="1270" y="660" font-size="13" fill="#52514e" text-anchor="end">Parallel controllers (상시 동시 계산)</text>
+  <text x="1270" y="660" font-size="13" fill="#52514e" text-anchor="end">병렬 제어기 (MPC · Fallback 동시 실행)</text>
 
   <rect x="300" y="540" width="340" height="100" rx="10" fill="#f1f0ec" stroke="#52514e" stroke-width="1.8"/>
   <text x="470" y="572" font-size="17.5" font-weight="bold" fill="#0b0b0b" text-anchor="middle">Stanley-PID Fallback</text>
   <text x="470" y="596" font-size="13" fill="#52514e" text-anchor="middle">Stanley 조향 + PID 속도 · 자체 3중 감속</text>
-  <text x="470" y="618" font-size="13" fill="#52514e" text-anchor="middle">MPC 이상 시 즉시 인계 (예비 제어기)</text>
+  <text x="470" y="618" font-size="13" fill="#52514e" text-anchor="middle">MPC 이상 시 대신 제어 (예비 제어기)</text>
 
   <rect x="900" y="540" width="340" height="100" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="3"/>
   <text x="1070" y="572" font-size="17.5" font-weight="bold" fill="#0b0b0b" text-anchor="middle">LTV-MPC</text>
@@ -93,15 +93,15 @@
   <text x="1060" y="512" font-size="12" fill="#52514e" text-anchor="end" font-family="Consolas, monospace">/local_path (path + v_target)</text>
   <path d="M 800 426 L 800 590 L 648 590" stroke="#52514e" stroke-width="1.6" stroke-dasharray="6 4" fill="none" marker-end="url(#ca)"/>
   <text x="724" y="582" font-size="12" fill="#52514e" text-anchor="middle">v_target only</text>
-  <!-- 측위 버스 → 제어기 -->
+  <!-- 측위 토픽 → 제어기 -->
   <line x1="420" y1="492" x2="420" y2="532" stroke="#2a78d6" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#cb)"/>
   <line x1="1180" y1="492" x2="1180" y2="532" stroke="#2a78d6" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#cb)"/>
   <path d="M 260 492 L 260 770 L 512 770" stroke="#2a78d6" stroke-width="1.6" stroke-dasharray="4 3" fill="none" marker-end="url(#cb)"/>
 
   <!-- ===== Row D: Control Decision ===== -->
   <rect x="520" y="716" width="500" height="112" rx="10" fill="#eaf2fc" stroke="#2a78d6" stroke-width="3"/>
-  <text x="770" y="748" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">Control Decision — /ctrl_cmd 유일 발행자</text>
-  <text x="770" y="774" font-size="13" fill="#52514e" text-anchor="middle">소스 선택(MPC / Fallback) · 속도상한 merge · 안전 처리</text>
+  <text x="770" y="748" font-size="18" font-weight="bold" fill="#0b0b0b" text-anchor="middle">Control Decision — 최종 명령 /ctrl_cmd 출력</text>
+  <text x="770" y="774" font-size="13" fill="#52514e" text-anchor="middle">제어기 선택(MPC / Fallback) · 속도 상한 적용 · 안전 처리</text>
   <text x="770" y="796" font-size="13" fill="#52514e" text-anchor="middle">계측 건강도 · odom 가드 · 과속 가드 · HOLD / EMERGENCY</text>
   <text x="770" y="816" font-size="12.5" fill="#2a78d6" text-anchor="middle" font-weight="bold">조향은 MPC 값 유지 (MPC 정상 시)</text>
 
@@ -125,8 +125,8 @@
 
   <!-- 설계 포인트 -->
   <rect x="1060" y="840" width="580" height="130" rx="10" fill="#ffffff" stroke="#d8d7d2" stroke-width="1.5"/>
-  <text x="1082" y="872" font-size="15.5" font-weight="bold" fill="#0b0b0b">설계 포인트</text>
-  <text x="1082" y="900" font-size="13.5" fill="#52514e">① 측위 버스 하나를 전 노드가 공유 → 좌표계·시점 불일치 제거</text>
-  <text x="1082" y="925" font-size="13.5" fill="#52514e">② MPC · Fallback 상시 병렬 계산 → 전환 시 명령 공백 없음</text>
-  <text x="1082" y="950" font-size="13.5" fill="#52514e">③ 최종 명령은 Control Decision 한 곳에서만 발행 → 명령 충돌 방지</text>
+  <text x="1082" y="872" font-size="15.5" font-weight="bold" fill="#0b0b0b">구조 특징</text>
+  <text x="1082" y="900" font-size="13.5" fill="#52514e">① 모든 노드가 같은 측위 토픽을 사용 → 좌표계·시점 불일치 방지</text>
+  <text x="1082" y="925" font-size="13.5" fill="#52514e">② MPC와 Fallback을 동시에 실행 → 전환 시에도 제어 명령이 끊기지 않음</text>
+  <text x="1082" y="950" font-size="13.5" fill="#52514e">③ 최종 명령은 Control Decision에서만 출력 → 명령 충돌 방지</text>
 </svg>

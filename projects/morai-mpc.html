@@ -84,18 +84,18 @@
 <section>
   <h2>시스템 아키텍처</h2>
   <p>
-    센서 → 측위 → 경로 → 신호등 → 제어로 이어지는 7개 패키지 파이프라인.
-    핵심 설계 원칙은 <b>속도 제약(신호등 감속 등)을 하류 브레이크 개입이 아니라
-    상류 planner의 목표 속도 프로파일에 주입</b>하는 것 — MPC가 조향과 가감속을
-    한 세트로 정합 최적화하므로 감속 중에도 경로 추종이 유지됩니다.
+    센서 → 측위 → 경로 → 신호등 → 제어로 이어지는 7개 패키지 구조입니다.
+    핵심은 <b>신호등 감속 같은 속도 제한을 브레이크로 직접 개입하지 않고,
+    경로 계획(LPP)의 목표 속도에 반영</b>한 것입니다. MPC가 조향과 가감속을
+    함께 최적화하므로 감속 중에도 경로 추종이 유지됩니다.
   </p>
   <figure>
     <img src="../assets/morai-control-arch.svg" alt="제어 시스템 아키텍처 다이어그램">
-    <figcaption>① 제어 시스템 아키텍처 — GPS·IMU·Encoder → robot_localization(Dual EKF) → /odometry/filtered_map 측위 버스 위에서 LPP가 경로·목표속도를 만들고, MPC·Fallback이 병렬 계산한 명령을 Control Decision이 중재해 MORAI로 전달</figcaption>
+    <figcaption>① 제어 시스템 아키텍처 — GPS·IMU·Encoder를 robot_localization(Dual EKF)으로 융합한 /odometry/filtered_map을 모든 노드가 사용합니다. LPP가 만든 경로·목표 속도로 MPC와 Fallback이 동시에 명령을 계산하고, Control Decision이 최종 명령을 골라 MORAI로 전달합니다.</figcaption>
   </figure>
   <figure>
     <img src="../assets/morai-pipeline.svg" alt="신호등 정지 제어 데이터 흐름 다이어그램">
-    <figcaption>② 신호등 정지 제어 — 인지(traffic_light_zone)와 감속 계획을 분리하고, 감속은 LPP의 v_target에 상류 주입해 제어기로 전달</figcaption>
+    <figcaption>② 신호등 정지 제어 — 인지(traffic_light_zone)와 감속 계획을 분리하고, 감속 제한은 LPP의 목표 속도(v_target)에 반영해 제어기로 전달</figcaption>
   </figure>
   <figure>
     <img src="../assets/morai-decision.svg" alt="감속 계획 및 control_decision 분기 다이어그램">
@@ -107,7 +107,7 @@
   <h2>핵심 작업</h2>
   <ul>
     <li><b>LTV-MPC 제어기 개발</b> — 지역 경로의 목표 속도 배열과 곡률을 입력으로 조향+가감속을 통합 최적화. 60km/h 주행 대응 개선, 스웨잉(swaying) 문제를 파라미터 구체화로 해결</li>
-    <li><b>3중 안전 구조 설계</b> — MPC / Stanley+PID 예비 제어기 / control_decision 중재 노드(유일 발행자, 계측 건강도 감시, HOLD·EMERGENCY 분기)로 단일 고장점 제거</li>
+    <li><b>3중 안전 구조 설계</b> — MPC / Stanley+PID 예비 제어기 / control_decision 노드(최종 명령 출력, 센서 상태 감시, HOLD·EMERGENCY 분기)로 단일 고장점 제거</li>
     <li><b>GPS 음영구간 복귀 검증</b> — robot_localization 이중 EKF 구조로 GPS 신호 소실 구간에서 휠 오도메트리·IMU 기반 측위 유지 및 복귀 검증</li>
     <li><b>신호등 정지 통합</b> — 카메라 UDP 수신 → 신호 인지 → 정지선 거리 계산 → planner 속도 프로파일 주입까지 통합, 실주행 검증 완료</li>
     <li><b>UDP 브리지 구축</b> — MORAI(Windows) ↔ ROS(WSL) 간 GPS/IMU/차량상태/제어명령 통신 계층 설계</li>
