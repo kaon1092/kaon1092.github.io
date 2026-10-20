@@ -179,6 +179,17 @@
 
 <section>
   <div class="wrap">
+    <h2>데이터 파이프라인 — 6DOF 비행 시뮬레이션과 ADRC 제어</h2>
+    <p>제원·환경 모델이 6DOF 동역학 엔진에 입력되고, 동역학의 비행 상태를 받은 ADRC가 외란을 추정·보상한 조종면 명령을 다시 동역학으로 보내는 폐루프 구조입니다. 시뮬레이션 결과는 궤적·추종 오차·외란 보상·조종면 포화 항목으로 분석합니다.</p>
+    <figure>
+      <img src="../assets/capstone-pipeline.svg" alt="6DOF 비행 시뮬레이션 및 ADRC 제어 데이터 파이프라인">
+      <figcaption>Configuration·Environment 모델 → 6DOF Dynamics Engine(RK4) ↔ ADRC Controller(TD · ESO · NLSEF) → Data Analysis Dashboard</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <h2>검증 결과 — 몬테카를로 시뮬레이션</h2>
     <div class="g2">
       <figure style="margin:0">
